@@ -1,0 +1,275 @@
+:root {
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    --bg:#f3f7f8;
+    --card:#fff;
+    --ink:#12303a;
+    --mute:#5d7580;
+    --line:#d3e0e4;
+    --acc:#0b7a75;
+    --ok:#16794a;
+    --okbg:#e2f4ea;
+    --ko:#b3261e;
+    --kobg:#fbe6e4;
+    --side:#0f3b47;
+    --sidei:#dcecef;
+}
+
+@media(prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+        --bg:#0d1a1f;
+        --card:#14262d;
+        --ink:#e3eef1;
+        --mute:#93aab3;
+        --line:#26414b;
+        --acc:#4fc1b8;
+        --ok:#6fd6a0;
+        --okbg:#153a29;
+        --ko:#ff9a92;
+        --kobg:#42201d;
+        --side:#0a2830;
+    }
+}
+
+html {
+    scroll-padding-top:env(safe-area-inset-top,0px);
+}
+
+* {
+    box-sizing:border-box;
+}
+
+body {
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+header {
+    background:var(--side);
+    color:#fff;
+    padding:14px 16px;
+}
+
+header h1 {
+    margin:0;
+    font-size:1.15rem;
+}
+
+header p {
+    margin:2px 0 0;
+    color:var(--sidei);
+    font-size:.85rem;
+}
+
+.wrap {
+    display:flex;
+    max-width:1100px;
+    margin:0 auto;
+}
+
+nav {
+    width:330px;
+    flex:none;
+    padding:14px;
+    border-right:1px solid var(--line);
+    max-height:100vh;
+    overflow:auto;
+    position:sticky;
+    top:0;
+    align-self:flex-start;
+}
+
+nav h2 {
+    font-size:.95rem;
+    margin:14px 0 6px;
+    color:var(--acc);
+}
+
+nav button {
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    width:100%;
+    text-align:left;
+    background:none;
+    border:0;
+    border-radius:8px;
+    padding:7px 8px;
+    color:var(--ink);
+    font:inherit;
+    font-size:.85rem;
+    cursor:pointer;
+}
+
+nav button:hover {
+    background:var(--line);
+}
+
+nav button.on {
+    background:var(--acc);
+    color:#fff;
+}
+
+nav .pg {
+    color:var(--mute);
+    font-size:.75rem;
+    white-space:nowrap;
+}
+
+nav button.on .pg {
+    color:#fff;
+}
+
+nav .todo {
+    opacity:.55;
+}
+
+main {
+    flex:1;
+    min-width:0;
+    padding:16px 16px 60px;
+}
+
+main h2 {
+    margin:0 0 4px;
+    font-size:1.3rem;
+}
+
+.sub {
+    color:var(--mute);
+    font-size:.9rem;
+    margin:0 0 14px;
+}
+
+.part {
+    margin:22px 0 8px;
+    font-weight:700;
+    color:var(--acc);
+}
+
+.q {
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    margin:0 0 10px;
+}
+
+.q p {
+    margin:0 0 8px;
+}
+
+.opts label {
+    display:block;
+    padding:6px 8px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.opts label:hover {
+    background:var(--bg);
+}
+
+.opts input {
+    margin-right:8px;
+    accent-color:var(--acc);
+}
+
+.q.ok {
+    border-left:5px solid var(--ok);
+}
+
+.q.ko {
+    border-left:5px solid var(--ko);
+}
+
+.opts label.good {
+    background:var(--okbg);
+}
+
+.opts label.bad {
+    background:var(--kobg);
+}
+
+.fix {
+    margin-top:8px;
+    font-size:.9rem;
+    color:var(--mute);
+    display:none;
+}
+
+.q.done .fix {
+    display:block;
+}
+
+.fix b {
+    color:var(--ink);
+}
+
+.bar {
+    position:sticky;
+    bottom:0;
+    background:var(--bg);
+    padding:10px 0;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+    border-top:1px solid var(--line);
+}
+
+.btn {
+    background:var(--acc);
+    color:#fff;
+    border:0;
+    border-radius:8px;
+    padding:10px 16px;
+    font:inherit;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn.alt {
+    background:none;
+    color:var(--acc);
+    border:1px solid var(--acc);
+}
+
+.score {
+    font-weight:700;
+}
+
+.soon {
+    background:var(--card);
+    border:1px dashed var(--line);
+    border-radius:10px;
+    padding:18px;
+    color:var(--mute);
+}
+
+#menu {
+    display:none;
+}
+
+@media(max-width:800px) {
+    .wrap {
+        display:block;
+    }
+    nav {
+        display:none;
+        width:auto;
+        max-height:60vh;
+        position:static;
+        border:0;
+        border-bottom:1px solid var(--line);
+    }
+    nav.open {
+        display:block;
+    }
+    #menu {
+        display:inline-block;
+        margin:10px 16px 0;
+    }
