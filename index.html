@@ -51,6 +51,15 @@ header{position:relative}
 .choix{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .gate .choix .btn{padding:15px 8px;font-size:.98rem;letter-spacing:.06em;text-transform:uppercase}
 .gate .choix .btn+.btn{background:var(--side,#0f3b47)}
+
+.gate-in.solo{grid-template-columns:minmax(0,460px)!important;justify-content:center}
+.niv{display:grid;gap:12px}
+.gate .niv .btn{padding:16px 10px;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase}
+.gate .niv .btn.later{background:var(--side,#0f3b47);opacity:.8}
+.niv-msg{min-height:1.2em;margin:12px 0 0;color:var(--mute,#5d7580);font-size:.92rem}
+.niv-msg:empty{display:none}
+.gate .retour{margin-top:16px;background:none;color:#dcecef;border:1px solid #dcecef;border-radius:10px;padding:10px 18px;font:inherit;font-size:.9rem;cursor:pointer}
+.gate .retour:hover{background:rgba(255,255,255,.12)}
 </style>
 </head>
 <body>
@@ -62,7 +71,7 @@ header{position:relative}
     </figure>
 
     <div class="gate-main">
-      <h1>Bienvenue à PREPA INFAS 2026</h1>
+      <h1>INFAS EXERCICE ET COURS</h1>
       <p class="tag">Cours, QCM, QCD et corrections pour réussir votre préparation au diplôme d'État IDE et SF.</p>
 
       <form id="form" onsubmit="return false">
@@ -82,6 +91,24 @@ header{position:relative}
   </div>
 </section>
 
+<section class="gate" id="niveaux" hidden>
+  <div class="gate-in solo">
+    <div class="gate-main">
+      <h1>Exercices</h1>
+      <p class="tag">Choisissez votre niveau pour accéder aux exercices corrigés.</p>
+      <form onsubmit="return false">
+        <div class="niv">
+          <button class="btn" type="button" data-niv="1">Licence 1</button>
+          <button class="btn later" type="button" data-niv="2">Licence 2</button>
+          <button class="btn later" type="button" data-niv="3">Licence 3</button>
+        </div>
+        <p class="niv-msg" id="niv-msg" role="status"></p>
+      </form>
+      <button class="retour" type="button" id="niv-back">← Retour à l'accueil</button>
+    </div>
+  </div>
+</section>
+
 <div id="app" hidden>
   <header>
     <h1>Succès LICENCE 1-2-3 IDE / SF</h1>
@@ -93,7 +120,7 @@ header{position:relative}
   <div class="wrap"><nav id="nav"></nav><main id="main"></main></div>
 </div>
 
-<script src="loader.js?v=4"></script>
+<script src="loader.js?v=5"></script>
 <script data-goatcounter="https://infas2026.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

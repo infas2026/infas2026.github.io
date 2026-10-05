@@ -24,9 +24,14 @@
     btn.textContent = 'Chargement…';
     try {
       await preparer();
-      setMode(mode);
       $('gate').hidden = true;
-      $('app').hidden = false;
+      if (mode === 'exo') {
+        $('niv-msg').textContent = '';
+        $('niveaux').hidden = false;
+      } else {
+        setMode(mode);
+        $('app').hidden = false;
+      }
       scrollTo(0, 0);
     } catch (e) {
       $('err').textContent = 'Chargement impossible. Vérifiez votre connexion et réessayez.';
@@ -36,6 +41,24 @@
   }
 
   boutons().forEach(b => b.addEventListener('click', () => ouvrir(b.dataset.mode, b)));
+
+  document.querySelectorAll('[data-niv]').forEach(b => b.addEventListener('click', () => {
+    const n = b.dataset.niv;
+    if (n === '1') {
+      setMode('exo');
+      $('niveaux').hidden = true;
+      $('app').hidden = false;
+      scrollTo(0, 0);
+    } else {
+      $('niv-msg').textContent = 'Les exercices de la Licence ' + n + ' seront bientôt disponibles.';
+    }
+  }));
+
+  $('niv-back').addEventListener('click', () => {
+    $('niveaux').hidden = true;
+    $('gate').hidden = false;
+    scrollTo(0, 0);
+  });
 
   $('out').addEventListener('click', () => {
     $('app').hidden = true;
