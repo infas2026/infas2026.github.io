@@ -11,7 +11,7 @@
   }
   function preparer() {
     if (typeof setMode === 'function') return Promise.resolve();      // déjà chargé
-    if (!pret) pret = Promise.all([charger('cours.js?v=4'), charger('script.js?v=4')]).catch(e => { pret = null; throw e; });
+    if (!pret) pret = Promise.all([charger('cours.js?v=11'), charger('script.js?v=4')]).catch(e => { pret = null; throw e; });
     return pret;
   }
 
