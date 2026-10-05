@@ -37,9 +37,20 @@
 header{position:relative}
 #out{position:absolute;right:16px;top:14px;background:none;color:var(--sidei,#dcecef);border:1px solid var(--sidei,#dcecef);border-radius:8px;padding:5px 10px;font:inherit;font-size:.8rem;cursor:pointer}
 @media(max-width:800px){header{padding-right:100px}}
-.titre-exo{text-align:center;padding:30px 16px 22px;background:var(--card,#fff);border-bottom:1px solid var(--line,#d3e0e4)}
-.titre-exo h2{margin:0;color:var(--ink,#12303a);font:800 clamp(2.4rem,8vw,4.4rem)/1 Georgia,"Iowan Old Style","Times New Roman",serif;letter-spacing:.14em;text-transform:uppercase}
-.titre-exo h2::after{content:"";display:block;width:90px;height:5px;margin:16px auto 0;background:var(--acc,#0b7a75);border-radius:3px}
+.onglets{display:flex;justify-content:center;gap:clamp(14px,5vw,56px);padding:26px 12px 0;background:var(--card,#fff);border-bottom:1px solid var(--line,#d3e0e4)}
+.onglets button{background:none;border:0;border-bottom:6px solid transparent;margin-bottom:-1px;padding:4px 4px 14px;cursor:pointer;color:var(--mute,#5d7580);font:800 clamp(1.6rem,6.2vw,3.4rem)/1 Georgia,"Iowan Old Style","Times New Roman",serif;letter-spacing:.12em;text-transform:uppercase}
+.onglets button:hover{color:var(--ink,#12303a)}
+.onglets button.on{color:var(--ink,#12303a);border-bottom-color:var(--acc,#0b7a75)}
+.onglets button:focus-visible{outline:3px solid var(--acc,#0b7a75);outline-offset:2px}
+.cours .retenir{background:var(--card,#fff);border-left:4px solid var(--acc,#0b7a75);padding:10px 14px;border-radius:8px;margin:0 0 6px;font-size:.92rem}
+.cours table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.93rem;display:block;overflow-x:auto}
+.cours th,.cours td{border:1px solid var(--line,#d3e0e4);padding:7px 10px;text-align:left;vertical-align:top}
+.cours th{background:var(--card,#fff);color:var(--acc,#0b7a75)}
+.cours{line-height:1.7}.cours h3{margin:22px 0 6px;color:var(--acc,#0b7a75)}.cours ul{padding-left:22px}
+#err:empty{display:none}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gate .choix .btn{padding:15px 8px;font-size:.98rem;letter-spacing:.06em;text-transform:uppercase}
+.gate .choix .btn+.btn{background:var(--side,#0f3b47)}
 </style>
 </head>
 <body>
@@ -54,17 +65,16 @@ header{position:relative}
       <h1>Bienvenue à PREPA INFAS 2026</h1>
       <p class="tag">Cours, QCM, QCD et corrections pour réussir votre préparation au diplôme d'État IDE et SF.</p>
 
-      <form id="form" autocomplete="off">
-        <h2>Accès réservé</h2>
-        <p class="lead">Veuillez entrer votre code d'accès fourni par l'administrateur.</p>
-        <input type="text" id="code" placeholder="XXXX-XXXX-XXXX" aria-label="Code d'accès" autocapitalize="characters" spellcheck="false" required>
-        <label class="keep"><input type="checkbox" id="keep" checked>Rester connecté sur cet appareil</label>
-        <button class="btn" id="ok" type="submit">Entrer</button>
-        <p id="err" role="alert"></p>
-      </form>
+      <form id="form" onsubmit="return false">
+      <div class="choix">
+        <button class="btn" type="button" data-mode="exo">Exercices</button>
+        <button class="btn" type="button" data-mode="cours">Cours</button>
+      </div>
+      <p id="err" role="alert"></p>
+    </form>
 
       <div class="contact">
-        Pas encore de code ? Contactez l'administrateur<br>
+        Une question ? Contactez l'administrateur<br>
         <a class="tel" href="tel:+2250759718750">+225 07 59 71 87 50</a><br>
         <a class="wa" href="https://wa.me/2250759718750" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
       </div>
@@ -76,14 +86,14 @@ header{position:relative}
   <header>
     <h1>Succès LICENCE 1-2-3 IDE / SF</h1>
     <p>Année académique 2025-2026 · Composition, examens et auto-évaluation</p>
-    <button id="out" type="button">Quitter</button>
+    <button id="out" type="button">Accueil</button>
   </header>
-  <div class="titre-exo"><h2>Exercices</h2></div>
+  <div class="onglets" role="tablist"><button id="tab-exo" class="on" role="tab" aria-selected="true">Exercices</button><button id="tab-cours" role="tab" aria-selected="false">Cours</button></div>
   <button id="menu" class="btn alt">☰ Sommaire</button>
   <div class="wrap"><nav id="nav"></nav><main id="main"></main></div>
 </div>
 
-<script src="data.enc.js?v=3"></script>
-<script src="loader.js?v=3"></script>
+<script src="loader.js?v=4"></script>
+<script data-goatcounter="https://infas2026.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
