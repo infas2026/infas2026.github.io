@@ -29,7 +29,32 @@ function goEx(id){const b=nav.querySelector('button[data-id="'+id+'"]');setMode(
 function goCo(id){const b=nav.querySelector('button[data-id="'+id+'"]');setMode('co');showCours(id,b.dataset.t)}
 const _show=show;show=function(id,t,p){_show(id,t,p);if(typeof COURS!=='undefined'&&COURS[id]&&mode==='ex')main.insertAdjacentHTML('afterbegin','<button class="btn alt gobtn" onclick="goCo(\''+id+'\')">📖 Voir le cours</button>')};
 document.getElementById('goEx').onclick=()=>{homeEl.hidden=true;licEl.hidden=false;toast2.textContent='';scrollTo(0,0)};
-licEl.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{if(b.dataset.l==='1'){licEl.hidden=true;openApp('ex')}else{toast2.textContent='Le sommaire de la Licence '+b.dataset.l+' sera bientôt disponible.'}});
+licEl.querySelectorAll('[data-l]').forEach(b=>{b.dataset.o=b.querySelector('small').textContent;b.onclick=()=>{const lv=b.dataset.l;toast2.textContent='';requireAccess(lv,()=>{if(lv==='1'){licEl.hidden=true;openApp('ex')}else{toast2.textContent='Accès Licence '+lv+' activé ✓ — le sommaire sera bientôt disponible.'}})}});
 document.getElementById('licBack').onclick=()=>{licEl.hidden=true;homeEl.hidden=false;scrollTo(0,0)};
-document.getElementById('goCo').onclick=()=>openApp('co');
+document.getElementById('goCo').onclick=()=>requireAccess('1',()=>openApp('co'));
 backBtn.onclick=()=>{appEl.hidden=true;if(mode==='ex')licEl.hidden=false;else homeEl.hidden=false;scrollTo(0,0)};
+
+/* ===== Accès par code (Licence 1, 2, 3) ===== */
+const KEY='infas_acces';
+function store(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+function saveStore(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+/* Un accès mémorisé reste valable tant que son empreinte figure encore dans access.js */
+function okHash(lv,h){return !!h&&((ACCESS.codes[lv]||[]).includes(h)||(ACCESS.codes.all||[]).includes(h))}
+function hasAccess(lv){const o=store();return okHash(lv,o[lv])||okHash(lv,o.all)}
+function refreshLocks(){licEl.querySelectorAll('[data-l]').forEach(b=>{const lv=b.dataset.l,ok=hasAccess(lv);b.querySelector('small').textContent=ok?'Accès activé ✓':'🔒 Code d\'accès requis';b.classList.toggle('open',ok)})}
+function fillPay(root){root.querySelectorAll('[data-pay]').forEach(el=>{el.innerHTML='';el.appendChild(document.getElementById('payTpl').content.cloneNode(true));const wa=el.querySelector('[data-wa]');wa.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite un code d\'accès à PREPA INFAS 2026.');el.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})}
+const gate=document.getElementById('gate'),gIn=document.getElementById('gateIn'),gErr=document.getElementById('gateErr');let gLv=null,gDone=null;
+function closeGate(){gate.hidden=true;gLv=gDone=null;document.body.style.overflow=''}
+function requireAccess(lv,done){if(hasAccess(lv)){done();return}
+gLv=lv;gDone=done;document.getElementById('gateT').textContent='Code d\'accès · Licence '+lv;document.getElementById('gateP').textContent='Saisissez le code fourni par l\'administrateur pour accéder à la Licence '+lv+'.';gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
+function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
+const h=hashCode(gLv,code),ha=hashCode('all',code),isAll=(ACCESS.codes.all||[]).includes(ha);if(isAll||(ACCESS.codes[gLv]||[]).includes(h)){const o=store();if(isAll)o.all=ha;else o[gLv]=h;saveStore(o);const d=gDone;closeGate();refreshLocks();d()}else{gErr.textContent='Code incorrect pour la Licence '+gLv+'. Vérifiez-le ou contactez l\'administrateur.';gIn.select()}}
+document.getElementById('gateOk').onclick=submitGate;
+gIn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();submitGate()}};
+document.getElementById('gateX').onclick=closeGate;
+gate.onclick=e=>{if(e.target===gate)closeGate()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!gate.hidden)closeGate()});
+fillPay(document);refreshLocks();
+
+/* Numéro de l'administrateur sur l'accueil */
+(function(){const a=document.getElementById('homeWa');a.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite des informations sur PREPA INFAS 2026.');a.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})();

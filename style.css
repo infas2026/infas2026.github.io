@@ -90,3 +90,31 @@ table.t th{background:var(--card);color:var(--acc)}
 #lic p{margin:0 0 26px;font-size:clamp(1rem,3.6vw,1.2rem);color:#d9eaee}
 .hbtn.l1{background:#0b9a8f}.hbtn.l2{background:#2b7bb9}.hbtn.l3{background:#7b4fc9}
 #toast2{min-height:1.4em;margin:16px 0 auto;color:#ffe3bf;font-weight:600}
+
+/* Accès par code + bloc d'inscription / paiement Wave */
+.gate{position:fixed;inset:0;z-index:50;background:rgba(6,20,25,.78);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:max(16px,env(safe-area-inset-top,0px)) 14px max(16px,env(safe-area-inset-bottom,0px))}
+.gatebox{position:relative;background:var(--card);color:var(--ink);width:100%;max-width:440px;border-radius:18px;padding:22px 18px 20px;margin:auto;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.gatebox h2{margin:0 28px 6px 0;font-size:1.25rem}
+.gatebox>p{margin:0 0 14px;color:var(--mute);font-size:.93rem}
+.gx{position:absolute;top:8px;right:10px;background:none;border:0;font-size:1.8rem;line-height:1;color:var(--mute);cursor:pointer;padding:4px 8px}
+.gin{display:flex;gap:8px}
+.gin input{flex:1;min-width:0;font:inherit;font-size:1.15rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:10px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.gin input:focus{outline:none;border-color:var(--acc)}
+#gateErr{min-height:1.3em;margin:8px 0 0;color:var(--ko);font-size:.88rem;font-weight:600}
+.paybox{margin-top:16px;padding:16px;border-radius:14px;background:var(--bg);border:1px solid var(--line);color:var(--ink);text-align:center}
+#lic .paybox{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);color:#fff;width:100%;max-width:420px;margin:26px 0 0}
+.paybox h3{margin:0 0 10px;font-size:1.05rem}
+.prices{display:flex;flex-direction:column;gap:2px;margin:0 0 10px!important;font-size:1rem!important;color:inherit!important}
+.prices b{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.prices strong{font-size:1.25rem;color:var(--acc)}
+#lic .prices strong{color:#ffd9a0}
+.paysub{margin:8px 0!important;font-size:.88rem!important;color:inherit!important;opacity:.9}
+.qr{display:block;width:210px;max-width:70%;height:auto;margin:10px auto;border-radius:12px;border:3px solid #fff;background:#fff}
+.btn.wa{display:block;background:#25a244;text-decoration:none;text-align:center;margin-top:12px}
+.paytel{margin:8px 0 0!important;font-size:.82rem!important;color:inherit!important;opacity:.85}
+.hbtn.open{outline:3px solid #ffd9a0;outline-offset:-3px}
+
+.homewa{display:inline-block;margin-top:22px;padding:11px 18px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);color:#fff;text-decoration:none;font-size:.95rem}
+.homewa b{color:#ffd9a0;letter-spacing:.04em;margin-left:4px}
+.homewa{border-radius:18px;line-height:1.35}
+.homewa b{display:block;margin:2px 0 0;font-size:1.25rem;white-space:nowrap}
