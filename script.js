@@ -32,6 +32,7 @@ document.getElementById('goEx').onclick=()=>{homeEl.hidden=true;licEl.hidden=fal
 licEl.querySelectorAll('[data-l]').forEach(b=>{b.dataset.o=b.querySelector('small').textContent;b.onclick=()=>{const lv=b.dataset.l;toast2.textContent='';requireAccess(lv,()=>{if(lv==='1'){licEl.hidden=true;openApp('ex')}else{toast2.textContent='Accès Licence '+lv+' activé ✓ — le sommaire sera bientôt disponible.'}})}});
 document.getElementById('licBack').onclick=()=>{licEl.hidden=true;homeEl.hidden=false;scrollTo(0,0)};
 document.getElementById('goCo').onclick=()=>requireAccess('1',()=>openApp('co'));
+document.getElementById('goDe').onclick=()=>DE.open();
 backBtn.onclick=()=>{appEl.hidden=true;if(mode==='ex')licEl.hidden=false;else homeEl.hidden=false;scrollTo(0,0)};
 
 /* ===== Accès par code (Licence 1, 2, 3) ===== */

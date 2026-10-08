@@ -13,6 +13,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `generer-code.html` | Page de l'administrateur pour créer un nouveau code et son empreinte |
 | `data.js` | Sommaire (49 épreuves) et exercices corrigés (3 253 questions) |
 | `cours.js` | Cours rédigés (HTML + schémas SVG originaux) |
+| `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa et Aboisso : 35 sujets, 624 questions corrigées (bouton **SUJET D.E L3** de l'accueil) |
 | `images/` | Photo d'accueil et figures de l'exercice « appareil locomoteur » |
 | `.nojekyll` | Demande à GitHub Pages de servir les fichiers tels quels |
 
@@ -30,6 +31,7 @@ Chaque licence demande un code fourni par l'administrateur. Le bouton **COURS** 
 - Ouvrir `generer-code.html` dans un navigateur, choisir la licence, cliquer sur *Générer un code*.
 - Donner le **code** à l'abonné, et coller l'**empreinte** affichée dans `access.js`, dans la liste du niveau (`codes → 1`, `2` ou `3`, séparées par des virgules).
 - Pour retirer un abonné : supprimer son empreinte de la liste. Son accès est refusé à sa prochaine visite.
+- Le bouton **SUJET D.E L3** de l'accueil est en accès libre (sans code). Pour le protéger, remplacer `DE.open()` par `requireAccess('3',()=>DE.open())` dans `script.js`.
 - Un code « Toutes les licences » (liste `all`) ouvre les Licences 1, 2, 3 et les cours.
 - Plusieurs codes par licence sont possibles (un par abonné, ou un nouveau code chaque mois).
 
