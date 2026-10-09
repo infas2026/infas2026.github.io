@@ -789,6 +789,6 @@ main.addEventListener('change',e=>{
   if(t.dataset.m==='1')a=t.checked?[...a,k]:a.filter(x=>x!==k);else a=[k];
   ans[i]=a});
 document.getElementById('deBack').onclick=()=>{el.hidden=true;document.getElementById('home').hidden=false;scrollTo(0,0)};
-return{open(){document.getElementById('home').hidden=true;el.hidden=false;schools()},_t:{CATS,schools,subjects,quiz,state:()=>({sch,ci,cur,ans,done}),set:(s,c)=>{sch=s;ci=c}}};
+return{pool(){const out=[];CATS.forEach(c=>c.s.forEach(x=>{if(/cas|suite|étude/i.test(x.t+' '+x.d))return;let cas=false;x.qs.forEach(q=>{if(q.c)cas=true;if(cas||!q.t.startsWith('QCM')||!q.a.length||q.o.length<2)return;out.push({q:q.q,o:q.o,a:q.a,e:q.e,src:x.t})})}));return out},open(){document.getElementById('home').hidden=true;el.hidden=false;schools()},_t:{CATS,schools,subjects,quiz,state:()=>({sch,ci,cur,ans,done}),set:(s,c)=>{sch=s;ci=c}}};
 
 })();

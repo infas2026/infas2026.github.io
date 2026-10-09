@@ -14,6 +14,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `data.js` | Sommaire (49 épreuves) et exercices corrigés (3 253 questions) |
 | `cours.js` | Cours rédigés (HTML + schémas SVG originaux) |
 | `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa et Aboisso : 35 sujets, 624 questions corrigées (bouton **SUJET D.E L3** de l'accueil) |
+| `jeu.js` | Jeu quiz : QCM tirés au hasard de tous les exercices (`data.js` + `de.js`, environ 1 250 questions) ; à la fin, le « Diplôme d'État D.E — Félicitations » s'affiche (bouton **JEU QUIZ** de l'accueil) |
 | `images/` | Photo d'accueil et figures de l'exercice « appareil locomoteur » |
 | `.nojekyll` | Demande à GitHub Pages de servir les fichiers tels quels |
 
