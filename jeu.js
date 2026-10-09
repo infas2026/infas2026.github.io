@@ -42,7 +42,7 @@ function confetti(){
 function diploma(){
   const pct=Math.round(S.score/S.n*100),m=pct>=90?'Mention Excellent':pct>=70?'Mention Très bien':pct>=50?'Mention Bien':'Mention Passable — continuez à vous entraîner !';
   const d=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-  body.innerHTML=`<div class="gDip"><div class="gk">PREPA INFAS 2026</div><div class="gm2">🎓</div><h2>DIPLÔME D'ÉTAT D.E</h2><div class="gf">FÉLICITATIONS !</div><p>décerné à</p><div class="gn">${esc(S.name||'Candidat(e) PREPA INFAS')}</div><p>pour avoir répondu aux <b>${S.n}</b> questions du jeu</p><p class="gs">Score : ${S.score} / ${S.n} (${pct} %)</p><p><b>${m}</b></p><p>Fait le ${d}</p><small>Récompense du jeu PREPA INFAS 2026 — diplôme symbolique, sans valeur officielle.</small></div><div class="bar"><button class="btn" data-a="again">🔁 Rejouer</button><button class="btn alt" data-a="exit">← Accueil</button></div>`;
+  body.innerHTML=`<div class="gDip"><div class="gk">MON D.E INFAS</div><div class="gm2">🎓</div><h2>DIPLÔME D'ÉTAT D.E</h2><div class="gf">FÉLICITATIONS !</div><p>décerné à</p><div class="gn">${esc(S.name||'Candidat(e) PREPA INFAS')}</div><p>pour avoir répondu aux <b>${S.n}</b> questions du jeu</p><p class="gs">Score : ${S.score} / ${S.n} (${pct} %)</p><p><b>${m}</b></p><p>Fait le ${d}</p><small>Récompense du jeu « MON D.E INFAS » — diplôme symbolique, sans valeur officielle.</small></div><div class="bar"><button class="btn" data-a="again">🔁 Rejouer</button><button class="btn alt" data-a="exit">← Accueil</button></div>`;
   scrollTo(0,0);confetti()}
 body.addEventListener('click',e=>{
   const b=e.target.closest('button[data-a]');if(!b)return;const a=b.dataset.a;

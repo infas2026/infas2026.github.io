@@ -43,7 +43,7 @@ function saveStore(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
 function okHash(lv,h){return !!h&&((ACCESS.codes[lv]||[]).includes(h)||(ACCESS.codes.all||[]).includes(h))}
 function hasAccess(lv){const o=store();return okHash(lv,o[lv])||okHash(lv,o.all)}
 function refreshLocks(){return;licEl.querySelectorAll('[data-l]').forEach(b=>{const lv=b.dataset.l,ok=hasAccess(lv);b.querySelector('small').textContent=ok?'Accès activé ✓':'🔒 Code d\'accès requis';b.classList.toggle('open',ok)})}
-function fillPay(root){root.querySelectorAll('[data-pay]').forEach(el=>{el.innerHTML='';el.appendChild(document.getElementById('payTpl').content.cloneNode(true));const wa=el.querySelector('[data-wa]');wa.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite un code d\'accès à PREPA INFAS 2026.');el.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})}
+function fillPay(root){root.querySelectorAll('[data-pay]').forEach(el=>{el.innerHTML='';el.appendChild(document.getElementById('payTpl').content.cloneNode(true));const wa=el.querySelector('[data-wa]');wa.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite un code d\'accès à « MON D.E INFAS ».');el.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})}
 const gate=document.getElementById('gate'),gIn=document.getElementById('gateIn'),gErr=document.getElementById('gateErr');let gLv=null,gDone=null;
 function closeGate(){gate.hidden=true;gLv=gDone=null;document.body.style.overflow=''}
 function requireAccess(lv,done){done();return;
@@ -58,4 +58,4 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!gate.hidden)closeG
 fillPay(document);refreshLocks();
 
 /* Numéro de l'administrateur sur l'accueil */
-(function(){const a=document.getElementById('homeWa');a.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite des informations sur PREPA INFAS 2026.');a.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})();
+(function(){const a=document.getElementById('homeWa');a.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite des informations sur « MON D.E INFAS ».');a.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})();

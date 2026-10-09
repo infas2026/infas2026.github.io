@@ -1,4 +1,4 @@
-# PREPA INFAS 2026
+# MON D.E INFAS
 
 Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QCD / QCM) et cours.
 
@@ -17,6 +17,8 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `jeu.js` | Jeu quiz : QCM tirés au hasard de tous les exercices (`data.js` + `de.js`, environ 1 250 questions) ; à la fin, le « Diplôme d'État D.E — Félicitations » s'affiche (bouton **JEU QUIZ** de l'accueil) |
 | `docs.js` | Boutons **DICTIONNAIRE MÉDICAL** (gauche) et **ATLAS IMAGE ANATOMIE** (droite) de l'accueil : lecteur des PDF du dossier `docs/` |
 | `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |
+| `cours-pdf.js` | Bouton **COURS PDF** de l'accueil : un bouton par matière (40 matières) qui ouvre le PDF du dossier `cours-pdf/` |
+| `cours-pdf/` | Déposer ici les PDF des cours ; les noms attendus sont listés dans `LISEZ-MOI.txt` (ex. `pediatrie.pdf`, `sante-publique.pdf`) |
 | `images/` | Photo d'accueil et figures de l'exercice « appareil locomoteur » |
 | `.nojekyll` | Demande à GitHub Pages de servir les fichiers tels quels |
 
