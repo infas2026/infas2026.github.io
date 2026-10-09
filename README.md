@@ -15,6 +15,8 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `cours.js` | Cours rédigés (HTML + schémas SVG originaux) |
 | `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa et Aboisso : 35 sujets, 624 questions corrigées (bouton **SUJET D.E L3** de l'accueil) |
 | `jeu.js` | Jeu quiz : QCM tirés au hasard de tous les exercices (`data.js` + `de.js`, environ 1 250 questions) ; à la fin, le « Diplôme d'État D.E — Félicitations » s'affiche (bouton **JEU QUIZ** de l'accueil) |
+| `docs.js` | Boutons **DICTIONNAIRE MÉDICAL** (gauche) et **ATLAS IMAGE ANATOMIE** (droite) de l'accueil : lecteur des PDF du dossier `docs/` |
+| `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |
 | `images/` | Photo d'accueil et figures de l'exercice « appareil locomoteur » |
 | `.nojekyll` | Demande à GitHub Pages de servir les fichiers tels quels |
 

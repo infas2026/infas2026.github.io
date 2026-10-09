@@ -158,3 +158,13 @@ table.t th{background:var(--card);color:var(--acc)}
 .gDip .gs{font-weight:800;font-size:1.15rem;color:#7a5400}
 .gDip small{display:block;margin-top:14px;color:#8a6a1f;font-size:.75rem}
 .gConf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+
+/* ===== Dictionnaire médical / Atlas ===== */
+.hrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.hbtn.sm{font-size:1rem;letter-spacing:.03em;padding:18px 8px;line-height:1.25}
+.hbtn.sm small{font-size:.7rem;letter-spacing:0}
+.hbtn.dc{background:#2b7bb9}.hbtn.at{background:#c0392b}
+#doc{min-height:100vh}
+#docBody{max-width:900px;margin:0 auto;padding:16px 16px 60px}
+#docBody .btn{display:inline-block;text-decoration:none;margin:6px 8px 0 0}
+.docFrame{width:100%;height:78vh;border:1px solid var(--line);border-radius:10px;background:#fff;margin-top:14px}
