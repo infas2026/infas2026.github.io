@@ -13,7 +13,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `generer-code.html` | Page de l'administrateur pour créer un nouveau code et son empreinte |
 | `data.js` | Sommaire (49 épreuves) et exercices corrigés (3 253 questions) |
 | `cours.js` | Cours rédigés (HTML + schémas SVG originaux) |
-| `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa et Aboisso : 35 sujets, 624 questions corrigées (bouton **SUJET D.E L3** de l'accueil) |
+| `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa, Aboisso, Man et Korhogo : 58 sujets, 975 questions corrigées (bouton **SUJET D.E L3** de l'accueil) |
 | `jeu.js` | Jeu quiz : QCM tirés au hasard de tous les exercices (`data.js` + `de.js`, environ 1 250 questions) ; à la fin, le « Diplôme d'État D.E — Félicitations » s'affiche (bouton **JEU QUIZ** de l'accueil) |
 | `docs.js` | Boutons **DICTIONNAIRE MÉDICAL** (gauche) et **ATLAS IMAGE ANATOMIE** (droite) de l'accueil : lecteur des PDF du dossier `docs/` |
 | `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |
@@ -47,3 +47,11 @@ Les matières qui ont un cours sont reliées automatiquement à leurs exercices 
 
 - Le PDF d'origine ne contenait pas de corrigé : les corrections sont rédigées à la main. Les points marqués « à confirmer » doivent être comparés avec votre cours.
 - Les schémas du cours sont des illustrations originales, libres d'utilisation.
+
+## Application installable (PWA)
+
+Le site peut s'installer comme une application sur téléphone : icône sur l'écran d'accueil, plein écran, et exercices/cours disponibles hors connexion après la première visite.
+- Fichiers : `manifest.json`, `sw.js`, `pwa.js`, `icon-192.png`, `icon-512.png`, `apple-touch-icon.png`.
+- Android (Chrome) : bouton « Installer l'application » sur l'accueil, ou menu ⋮ → Installer l'application.
+- iPhone (Safari) : Partager → Sur l'écran d'accueil.
+- Après une mise à jour du site, changer `V` dans `sw.js` (ex. `mon-de-infas-v2`) pour que les téléphones récupèrent la nouvelle version.
