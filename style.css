@@ -192,3 +192,8 @@ table.t th{background:var(--card);color:var(--acc)}
 
 .homegrp{display:inline-block;margin:10px 0 0;padding:12px 20px;border-radius:999px;background:#25d366;color:#fff;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .homegrp:active{opacity:.85}
+
+/* ===== FORMULE SANTÉ PUBLIQUE ===== */
+.hbtn.sp{background:#0b6e75;font-size:1.25rem;letter-spacing:.06em}
+#sp{min-height:100vh;display:flex;flex-direction:column}
+.spFrame{flex:1;width:100%;min-height:calc(100vh - 150px);border:0;background:#fff}
