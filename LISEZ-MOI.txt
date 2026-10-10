@@ -1,0 +1,50 @@
+COURS PDF — noms des fichiers attendus dans ce dossier (cours-pdf/)
+
+Déposez le PDF d'une matière sous le nom indiqué : le bouton correspondant passe automatiquement à « ✓ Disponible ».
+Pour créer un nouveau bouton : ajoutez le nom de la matière dans la liste de cours-pdf.js, puis déposez son PDF ici.
+
+GRANDES MATIÈRES
+  pediatrie.pdf    ←  Pédiatrie
+  medecine.pdf    ←  Médecine
+  chirurgie.pdf    ←  Chirurgie
+  sante-publique.pdf    ←  Santé publique
+  gynecologie-et-obstetrique.pdf    ←  Gynécologie et obstétrique
+
+ANATOMIE ET PHYSIOLOGIE
+  anatomie.pdf    ←  Anatomie
+  anatomie-de-l-appareil-digestif.pdf    ←  Anatomie de l'appareil digestif
+  anatomie-cellule-et-tissus.pdf    ←  Anatomie cellule et tissus
+  anatomie-appareil-locomoteur.pdf    ←  Anatomie appareil locomoteur
+  anatomie-cardiovasculaire.pdf    ←  Anatomie cardiovasculaire
+  anatomie-et-physiologie-respiratoire.pdf    ←  Anatomie et physiologie respiratoire
+  anatomie-obstetricale.pdf    ←  Anatomie obstétricale
+  anatomie-appareil-urinaire-et-reproduction.pdf    ←  Anatomie appareil urinaire et reproduction
+
+AUTRES MATIÈRES DES EXERCICES
+  etude-du-milieu.pdf    ←  Étude du milieu
+  semiologie-medicale.pdf    ←  Sémiologie médicale
+  semiologie-et-pathologie-chirurgicales.pdf    ←  Sémiologie et pathologie chirurgicales
+  dietetique.pdf    ←  Diététique
+  nutrition.pdf    ←  Nutrition
+  maladies-infectieuses-et-tropicales.pdf    ←  Maladies infectieuses et tropicales
+  hygiene-et-assainissement.pdf    ←  Hygiène et assainissement
+  infection-a-vih-et-ist.pdf    ←  Infection à VIH et IST
+  sonu.pdf    ←  SONU
+  epidemiologie.pdf    ←  Épidémiologie
+  parasitologie.pdf    ←  Parasitologie
+  iecc-ccc.pdf    ←  IECC / CCC
+  urologie.pdf    ←  Urologie
+  immunologie.pdf    ←  Immunologie
+  theorie-et-concept.pdf    ←  Théorie et concept
+  recherche.pdf    ←  Recherche
+  systeme-national-de-sante.pdf    ←  Système national de santé
+  soins-de-sante-primaires.pdf    ←  Soins de santé primaires
+  pathologie-respiratoire.pdf    ←  Pathologie respiratoire
+  demarche-de-soins-scientifiques.pdf    ←  Démarche de soins scientifiques
+  hematologie.pdf    ←  Hématologie
+  techniques-de-soins-infirmiers.pdf    ←  Techniques de soins infirmiers
+  techniques-de-soins-de-base.pdf    ←  Techniques de soins de base
+  soins-aux-enfants.pdf    ←  Soins aux enfants
+  biochimie.pdf    ←  Biochimie
+  bacteriologie-virologie.pdf    ←  Bactériologie-virologie
+  pev.pdf    ←  PEV
