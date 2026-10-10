@@ -18,6 +18,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `docs.js` | Boutons **DICTIONNAIRE MÉDICAL** (gauche) et **ATLAS IMAGE ANATOMIE** (droite) de l'accueil : lecteur des PDF du dossier `docs/` |
 | `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |
 | `sp.js` + `sante-publique.html` | Bouton **FORMULE SANTÉ PUBLIQUE** de l'accueil : ouvre la page des formules et exercices corrigés |
+| `pd.js` + `resume-pediatrie.html` | Bouton **RÉSUMÉ PÉDIATRIE** de l'accueil (juste après FORMULE SANTÉ PUBLIQUE) : résumé du cours de pédiatrie en 17 chapitres, avec recherche |
 | `cm.js` + `classification-medicaments.html` | Bouton **CLASSIFICATION DES MÉDICAMENTS** de l'accueil : page de recherche (posologies, calculs de doses, valeurs normales, termes médicaux) |
 | `sch.js` + `schemas-illustrations.html` + `images/schemas/` | Bouton **SCHÉMA ET ILLUSTRATION** de l'accueil : 57 schémas (code d'accès au clic sur un schéma) |
 | `cours-pdf.js` | Bouton **COURS PDF** de l'accueil : un bouton par matière (40 matières) qui ouvre le PDF du dossier `cours-pdf/` |

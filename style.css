@@ -129,8 +129,8 @@ table.t th{background:var(--card);color:var(--acc)}
 .deCard h3{margin:0 0 4px;font-size:1rem}
 .deCard .btn{margin-top:10px}
 .deTop{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
-.deTabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
-.deTab{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:20px;font:inherit;font-size:.9rem;cursor:pointer}
+.deTabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px;padding-bottom:6px}
+.deTab{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 10px;text-align:center;border-radius:20px;font:inherit;font-size:.9rem;cursor:pointer}
 .deTab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
 .deTag{font-size:.7rem;background:var(--okbg);color:var(--ok);padding:2px 8px;border-radius:10px;margin-left:8px;white-space:nowrap}
 .deCtx{background:var(--okbg);border:1px solid var(--ok);border-radius:10px;padding:10px 12px;margin:16px 0 0;font-size:.93rem}
@@ -202,3 +202,5 @@ table.t th{background:var(--card);color:var(--acc)}
 .hbtn.sc{background:#b9770e;font-size:1.2rem;letter-spacing:.05em}
 
 .homemsg{margin:18px 0 6px;color:#fff;font-size:1.15rem;font-weight:700;font-style:italic;text-align:center;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.45)}
+
+.hbtn.pd{background:#d6457a;font-size:1.25rem;letter-spacing:.06em}
