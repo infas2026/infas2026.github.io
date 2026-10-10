@@ -1,6 +1,6 @@
 /* Service worker : le site fonctionne hors connexion (exercices, cours, jeu). Les PDF restent chargés depuis Internet.
    Après une mise à jour du site, changer le numéro de version V pour forcer le rafraîchissement. */
-const V='mon-de-infas-v16';
+const V='mon-de-infas-v17';
 const SHELL=['./','index.html','style.css','access.js','data.js','cours.js','de.js','jeu.js','docs.js','cours-pdf.js','sp.js','sante-publique.html','cm.js','classification-medicaments.html','sch.js','schemas-illustrations.html','script.js','pwa.js','manifest.json','images/accueil.jpg','images/wave-qr.jpg','icon-192.png','icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(SHELL.map(f=>c.add(f).catch(()=>{})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});

@@ -6,11 +6,4 @@ const home=document.getElementById('home'),sec=document.getElementById('schSec')
 document.getElementById('goSc').onclick=()=>{home.hidden=true;sec.hidden=false;
   if(window.SC_HTML)fr.srcdoc=window.SC_HTML;else if(!fr.getAttribute('src'))fr.src='schemas-illustrations.html';scrollTo(0,0)};
 document.getElementById('scBack').onclick=()=>{sec.hidden=true;home.hidden=false;scrollTo(0,0)};
-const MSG='Les schémas et illustrations sont réservés aux abonnés (1 000 FCFA / mois). Contactez l\'administrateur sur WhatsApp pour obtenir votre code, puis saisissez-le ci-dessous.';
-window.addEventListener('message',e=>{
-  if(e.source!==fr.contentWindow||!e.data)return;
-  const t=e.data.type,w=fr.contentWindow;
-  if(t==='sc-hello')w.postMessage({type:'sc-state',ok:hasAnyAccess()},'*');
-  else if(t==='sc-need')requireCorrection(()=>w.postMessage({type:'sc-ok',i:e.data.i},'*'),MSG);
-});
 })();

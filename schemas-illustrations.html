@@ -62,7 +62,6 @@ main{max-width:900px;margin:0 auto;padding:10px 12px 60px;display:grid;grid-temp
   <div class="row"><input id="q" type="search" placeholder="Rechercher un schéma ( cœur, sutures, vaccins… )" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Rechercher"><button id="clr" type="button" aria-label="Effacer la recherche">✕</button></div>
   <div class="info" id="info" role="status"></div>
 </div></div>
-<div class="lock" id="lock">🔒 Accès réservé aux abonnés : touchez un schéma pour saisir votre code d’accès (1 000 FCFA / mois).</div>
 <main id="out"></main>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Schéma agrandi">
   <div class="top"><div class="cap" id="cap"></div><button id="zoom" type="button">🔍 Zoom</button><button id="close" type="button" aria-label="Fermer">✕</button></div>
@@ -73,18 +72,13 @@ main{max-width:900px;margin:0 auto;padding:10px 12px 60px;display:grid;grid-temp
 const DATA=[{"t": "Anatomie du système immunitaire", "f": "images/schemas/01.jpg", "th": "images/schemas/t/01.jpg"}, {"t": "Appareil digestif (vue d'ensemble)", "f": "images/schemas/02.jpg", "th": "images/schemas/t/02.jpg"}, {"t": "La cage thoracique", "f": "images/schemas/03.jpg", "th": "images/schemas/t/03.jpg"}, {"t": "Le squelette humain et ses os", "f": "images/schemas/04.jpg", "th": "images/schemas/t/04.jpg"}, {"t": "Incisions abdominales courantes", "f": "images/schemas/05.jpg", "th": "images/schemas/t/05.jpg"}, {"t": "Vitamines et leurs carences", "f": "images/schemas/06.jpg", "th": "images/schemas/t/06.jpg"}, {"t": "Les maladies courantes", "f": "images/schemas/07.jpg", "th": "images/schemas/t/07.jpg"}, {"t": "La colonne vertébrale", "f": "images/schemas/08.jpg", "th": "images/schemas/t/08.jpg"}, {"t": "27 pathologies de l'œil à connaître", "f": "images/schemas/09.jpg", "th": "images/schemas/t/09.jpg"}, {"t": "Cancer du sein", "f": "images/schemas/10.jpg", "th": "images/schemas/t/10.jpg"}, {"t": "Antibiotiques et leurs indications", "f": "images/schemas/11.jpg", "th": "images/schemas/t/11.jpg"}, {"t": "Points clés à retenir : odontologie et traumatologie", "f": "images/schemas/12.jpg", "th": "images/schemas/t/12.jpg"}, {"t": "Les types de sutures cutanées et leurs utilisations", "f": "images/schemas/13.jpg", "th": "images/schemas/t/13.jpg"}, {"t": "Principales colorations anormales de la peau", "f": "images/schemas/14.jpg", "th": "images/schemas/t/14.jpg"}, {"t": "Les cathéters médicaux courants et leurs utilisations", "f": "images/schemas/15.jpg", "th": "images/schemas/t/15.jpg"}, {"t": "Les naissances et le nouveau-né", "f": "images/schemas/16.jpg", "th": "images/schemas/t/16.jpg"}, {"t": "Respiration : types de respirations fréquents", "f": "images/schemas/17.jpg", "th": "images/schemas/t/17.jpg"}, {"t": "Administration des injections", "f": "images/schemas/18.jpg", "th": "images/schemas/t/18.jpg"}, {"t": "Maladies et organes touchés", "f": "images/schemas/19.jpg", "th": "images/schemas/t/19.jpg"}, {"t": "Termes médicaux et illustrations", "f": "images/schemas/20.jpg", "th": "images/schemas/t/20.jpg"}, {"t": "Les neuf régions abdominales", "f": "images/schemas/21.jpg", "th": "images/schemas/t/21.jpg"}, {"t": "À quoi servent les différentes couleurs des poubelles médicales", "f": "images/schemas/22.jpg", "th": "images/schemas/t/22.jpg"}, {"t": "Occlusion intestinale : fiche de révision", "f": "images/schemas/23.jpg", "th": "images/schemas/t/23.jpg"}, {"t": "Maladies infectieuses et voies de transmission", "f": "images/schemas/24.jpg", "th": "images/schemas/t/24.jpg"}, {"t": "Infection vs inflammation", "f": "images/schemas/25.jpg", "th": "images/schemas/t/25.jpg"}, {"t": "Le pansement humide alcoolisé", "f": "images/schemas/26.jpg", "th": "images/schemas/t/26.jpg"}, {"t": "La façon la plus simple de lire une NFS", "f": "images/schemas/27.jpg", "th": "images/schemas/t/27.jpg"}, {"t": "Protocole du pansement", "f": "images/schemas/28.jpg", "th": "images/schemas/t/28.jpg"}, {"t": "Groupe sanguin : ne pas le connaître est un véritable danger", "f": "images/schemas/29.jpg", "th": "images/schemas/t/29.jpg"}, {"t": "Médicaments bien classés contre les infections vaginales", "f": "images/schemas/30.jpg", "th": "images/schemas/t/30.jpg"}, {"t": "Marasme et kwashiorkor", "f": "images/schemas/31.jpg", "th": "images/schemas/t/31.jpg"}, {"t": "Naissance : les termes à connaître", "f": "images/schemas/32.jpg", "th": "images/schemas/t/32.jpg"}, {"t": "ECG (électrocardiogramme)", "f": "images/schemas/33.jpg", "th": "images/schemas/t/33.jpg"}, {"t": "Illustration anatomique (intestin)", "f": "images/schemas/34.jpg", "th": "images/schemas/t/34.jpg"}, {"t": "Le système digestif", "f": "images/schemas/35.jpg", "th": "images/schemas/t/35.jpg"}, {"t": "Hématémèse, hémoptysie et épistaxis", "f": "images/schemas/36.jpg", "th": "images/schemas/t/36.jpg"}, {"t": "Les différentes parties du membre supérieur", "f": "images/schemas/37.jpg", "th": "images/schemas/t/37.jpg"}, {"t": "Hydrocéphalie", "f": "images/schemas/38.jpg", "th": "images/schemas/t/38.jpg"}, {"t": "Pièces de l'appareil de tension artérielle", "f": "images/schemas/39.jpg", "th": "images/schemas/t/39.jpg"}, {"t": "Comprendre les douleurs nerveuses thoraciques", "f": "images/schemas/40.jpg", "th": "images/schemas/t/40.jpg"}, {"t": "Infections courantes de l'oreille et de l'œil : causes, symptômes et traitement", "f": "images/schemas/41.jpg", "th": "images/schemas/t/41.jpg"}, {"t": "Techniques de bandage de premiers secours", "f": "images/schemas/42.jpg", "th": "images/schemas/t/42.jpg"}, {"t": "Bilan de santé annuel : les 8 tests sanguins clés", "f": "images/schemas/43.jpg", "th": "images/schemas/t/43.jpg"}, {"t": "5 médicaments d'urgence à connaître", "f": "images/schemas/44.jpg", "th": "images/schemas/t/44.jpg"}, {"t": "Abréviations médicales", "f": "images/schemas/45.jpg", "th": "images/schemas/t/45.jpg"}, {"t": "Illustration anatomique (tête, vue de profil)", "f": "images/schemas/46.jpg", "th": "images/schemas/t/46.jpg"}, {"t": "Illustration anatomique (nerfs crâniens)", "f": "images/schemas/47.jpg", "th": "images/schemas/t/47.jpg"}, {"t": "Les vaccins en pédiatrie", "f": "images/schemas/48.jpg", "th": "images/schemas/t/48.jpg"}, {"t": "6 définitions à connaître en pathologie", "f": "images/schemas/49.jpg", "th": "images/schemas/t/49.jpg"}, {"t": "Les familles des médicaments", "f": "images/schemas/50.jpg", "th": "images/schemas/t/50.jpg"}, {"t": "Les abréviations", "f": "images/schemas/51.jpg", "th": "images/schemas/t/51.jpg"}, {"t": "Drain vs sonde vs cathéter", "f": "images/schemas/52.jpg", "th": "images/schemas/t/52.jpg"}, {"t": "Les principales hernies abdominales", "f": "images/schemas/53.jpg", "th": "images/schemas/t/53.jpg"}, {"t": "Les couches de l'anatomie du pied", "f": "images/schemas/54.jpg", "th": "images/schemas/t/54.jpg"}, {"t": "Types et sites de thermomètres", "f": "images/schemas/55.jpg", "th": "images/schemas/t/55.jpg"}, {"t": "L'AVC", "f": "images/schemas/56.jpg", "th": "images/schemas/t/56.jpg"}, {"t": "La rougeole", "f": "images/schemas/57.jpg", "th": "images/schemas/t/57.jpg"}];
 const norm=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let unlocked=false,list=DATA.map((d,i)=>i),cur=0;
-const inFrame=window.parent!==window;
+let unlocked=true,list=DATA.map((d,i)=>i),cur=0;
 function render(){
   const raw=document.getElementById('q').value.trim(),q=norm(raw);
   list=[];DATA.forEach((d,i)=>{if(!q||norm(d.t).includes(q))list.push(i)});
   document.getElementById('out').innerHTML=list.length?list.map(i=>'<button class="card" type="button" data-i="'+i+'">'+(unlocked?'<img loading="lazy" alt="" src="'+DATA[i].th+'">':'<div class="ph">🔒</div>')+'<span>'+esc(DATA[i].t)+'</span></button>').join(''):'<div class="none">Aucun schéma pour « '+esc(raw)+' ».</div>';
   document.getElementById('info').textContent=q?(list.length+' résultat'+(list.length>1?'s':'')):(DATA.length+' schémas et illustrations');
-  document.getElementById('lock').hidden=unlocked;
 }
-function need(i){
-  if(!inFrame){alert('Ouvrez cette page depuis le site MON D.E INFAS pour consulter les schémas.');return}
-  window.parent.postMessage({type:'sc-need',i:i},'*')}
 const lb=document.getElementById('lb'),big=document.getElementById('big'),stage=document.getElementById('stage');
 function show(k){
   if(!list.length)return;cur=(k+list.length)%list.length;const d=DATA[list[cur]];
@@ -95,7 +89,6 @@ function closeLb(){lb.hidden=true;big.removeAttribute('src')}
 document.getElementById('out').addEventListener('click',e=>{
   const c=e.target.closest&&e.target.closest('.card');if(!c)return;
   const i=+c.getAttribute('data-i');
-  if(!unlocked){need(i);return}
   show(list.indexOf(i))});
 document.getElementById('close').onclick=closeLb;
 document.getElementById('prev').onclick=()=>show(cur-1);
@@ -109,13 +102,7 @@ stage.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouc
 const qi=document.getElementById('q');
 let t;qi.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(render,120)});
 document.getElementById('clr').onclick=()=>{qi.value='';render();qi.focus()};
-window.addEventListener('message',e=>{
-  if(e.source!==window.parent||!e.data)return;
-  if(e.data.type==='sc-state'){unlocked=!!e.data.ok;render()}
-  else if(e.data.type==='sc-ok'){unlocked=true;render();if(e.data.i>=0)show(list.indexOf(e.data.i))}
-});
 render();
-if(inFrame)window.parent.postMessage({type:'sc-hello'},'*');
 </script>
 </body>
 </html>
