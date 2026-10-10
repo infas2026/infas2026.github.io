@@ -49,8 +49,8 @@ function closeGate(){gate.hidden=true;gLv=gDone=null;document.body.style.overflo
 function requireAccess(lv,done){done();return;
 gLv=lv;gDone=done;document.getElementById('gateT').textContent='Code d\'accès · Licence '+lv;document.getElementById('gateP').textContent='Saisissez le code fourni par l\'administrateur pour accéder à la Licence '+lv+'.';gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
 function hasAnyAccess(){return ['1','2','3'].some(hasAccess)}
-function requireCorrection(done){if(hasAnyAccess()){done();return}
-gLv='corr';gDone=done;document.getElementById('gateT').textContent='🔒 Code d\'accès requis';document.getElementById('gateP').textContent='Les corrections sont réservées aux abonnés (1 000 FCFA / mois). Contactez l\'administrateur sur WhatsApp pour obtenir votre code, puis saisissez-le ci-dessous.';gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
+function requireCorrection(done,msg){if(hasAnyAccess()){done();return}
+gLv='corr';gDone=done;document.getElementById('gateT').textContent='🔒 Code d\'accès requis';document.getElementById('gateP').textContent=msg||'Les corrections sont réservées aux abonnés (1 000 FCFA / mois). Contactez l\'administrateur sur WhatsApp pour obtenir votre code, puis saisissez-le ci-dessous.';gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
 function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
 if(gLv==='corr'){const ha=hashCode('all',code);let hit=(ACCESS.codes.all||[]).includes(ha)?['all',ha]:null;if(!hit)for(const l of ['1','2','3']){const h=hashCode(l,code);if((ACCESS.codes[l]||[]).includes(h)){hit=[l,h];break}}
 if(hit){const o=store();o[hit[0]]=hit[1];saveStore(o);const d=gDone;closeGate();d()}else{gErr.textContent='Code incorrect. Vérifiez-le ou contactez l\'administrateur.';gIn.select()}return}
