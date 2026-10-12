@@ -204,3 +204,17 @@ table.t th{background:var(--card);color:var(--acc)}
 .homemsg{margin:18px 0 6px;color:#fff;font-size:1.15rem;font-weight:700;font-style:italic;text-align:center;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.45)}
 
 .hbtn.pd{background:#d6457a;font-size:1.25rem;letter-spacing:.06em}
+
+.hrow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;margin-top:-4px}
+.hrow3 .hbtn.sm{padding:14px 6px;font-size:1.05rem;font-weight:800}
+
+.hbtn.gl{background:#4a5fc1;font-size:1.2rem;letter-spacing:.05em}
+.hbtn.pf{background:#c2185b;font-size:1.2rem;letter-spacing:.05em}
+
+/* banderole d'annonce */
+.banner{align-self:stretch;overflow:hidden;white-space:nowrap;background:linear-gradient(90deg,#6fd6c6,#a8eee2);color:#0c2a32;border:1px solid rgba(255,255,255,.55);border-radius:8px;margin:0 0 10px;padding:5px 0;font-weight:700;font-size:.8rem;letter-spacing:.01em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);text-align:left}
+.banner .bTrack{display:inline-flex;animation:bannerMove 18s linear infinite;will-change:transform}
+.banner .bTrack span{padding-right:50px}
+.banner:hover .bTrack,.banner:focus .bTrack,.banner:active .bTrack{animation-play-state:paused}
+@keyframes bannerMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.banner{white-space:normal;text-align:center;padding:5px 10px}.banner .bTrack{animation:none;display:block}.banner .bTrack span+span{display:none}.banner .bTrack span{padding-right:0}}

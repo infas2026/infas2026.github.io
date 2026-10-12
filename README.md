@@ -13,7 +13,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `generer-code.html` | Page de l'administrateur pour créer un nouveau code et son empreinte |
 | `data.js` | Sommaire (49 épreuves) et exercices corrigés (3 253 questions) |
 | `cours.js` | Cours rédigés (HTML + schémas SVG originaux) |
-| `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa, Aboisso, Man et Korhogo : 58 sujets, 975 questions corrigées (bouton **SUJET D.E L3** de l'accueil) |
+| `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa, Aboisso, Man, Korhogo et Agboville (blocs B 2026, versions A, C et D) (bouton **SUJET D.E L3** de l'accueil) |
 | `jeu.js` | Jeu quiz : QCM tirés au hasard de tous les exercices (`data.js` + `de.js`, environ 1 250 questions) ; à la fin, le « Diplôme d'État D.E — Félicitations » s'affiche (bouton **JEU QUIZ** de l'accueil) |
 | `docs.js` | Boutons **DICTIONNAIRE MÉDICAL** (gauche) et **ATLAS IMAGE ANATOMIE** (droite) de l'accueil : lecteur des PDF du dossier `docs/` |
 | `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |
@@ -21,6 +21,8 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `pd.js` + `resume-pediatrie.html` | Bouton **RÉSUMÉ PÉDIATRIE** de l'accueil (juste après FORMULE SANTÉ PUBLIQUE) : résumé du cours de pédiatrie en 17 chapitres, avec recherche |
 | `cm.js` + `classification-medicaments.html` | Bouton **CLASSIFICATION DES MÉDICAMENTS** de l'accueil : page de recherche (posologies, calculs de doses, valeurs normales, termes médicaux) |
 | `sch.js` + `schemas-illustrations.html` + `images/schemas/` | Bouton **SCHÉMA ET ILLUSTRATION** de l'accueil : 57 schémas (code d'accès au clic sur un schéma) |
+| `gl.js` + `glossaire-medical.html` | Bouton **GLOSSAIRE MÉDICAL** de l'accueil : environ 1450 mots, expressions et sigles médicaux du site, avec barre de recherche (insensible aux accents), filtre par catégorie et index alphabétique. Pour ajouter un mot : ajouter une ligne `[mot, catégorie, définition]` dans la liste `DATA` du fichier |
+| `pf.js` + `prefixes-suffixes.html` | Bouton **PRÉFIXES ET SUFFIXES** de l'accueil : environ 100 préfixes et 70 suffixes médicaux, avec leur sens, leur origine et des exemples, recherche intégrée. Pour modifier : listes `P` et `S` du fichier `prefixes-suffixes.html` |
 | `cours-pdf.js` | Bouton **COURS PDF** de l'accueil : un bouton par matière (40 matières) qui ouvre le PDF du dossier `cours-pdf/` |
 | `cours-pdf/` | Déposer ici les PDF des cours ; les noms attendus sont listés dans `LISEZ-MOI.txt` (ex. `pediatrie.pdf`, `sante-publique.pdf`) |
 | `images/` | Photo d'accueil et figures de l'exercice « appareil locomoteur » |

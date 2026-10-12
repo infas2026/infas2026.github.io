@@ -30,6 +30,8 @@ function goCo(id){const b=nav.querySelector('button[data-id="'+id+'"]');setMode(
 const _show=show;show=function(id,t,p){_show(id,t,p);if(typeof COURS!=='undefined'&&COURS[id]&&mode==='ex')main.insertAdjacentHTML('afterbegin','<button class="btn alt gobtn" onclick="goCo(\''+id+'\')">📖 Voir le cours</button>')};
 document.getElementById('goEx').onclick=()=>{homeEl.hidden=true;licEl.hidden=false;toast2.textContent='';scrollTo(0,0)};
 licEl.querySelectorAll('[data-l]').forEach(b=>{b.dataset.o=b.querySelector('small').textContent;b.onclick=()=>{const lv=b.dataset.l;toast2.textContent='';requireAccess(lv,()=>{if(lv==='1'){licEl.hidden=true;openApp('ex')}else{toast2.textContent='Licence '+lv+' : le sommaire sera bientôt disponible.'}})}});
+document.querySelectorAll('[data-hl]').forEach(b=>{b.onclick=()=>{const lv=b.dataset.hl;toast.textContent='';requireAccess(lv,()=>{if(lv==='1')openApp('ex');else toast.textContent='Licence '+lv+' : le sommaire sera bientôt disponible.'})}});
+(()=>{const b=document.getElementById('banner'),go=document.getElementById('goDe');if(b&&go){b.onclick=()=>go.click();b.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go.click()}}}})();
 document.getElementById('licBack').onclick=()=>{licEl.hidden=true;homeEl.hidden=false;scrollTo(0,0)};
 document.getElementById('goCo').onclick=()=>requireAccess('1',()=>openApp('co'));
 document.getElementById('goDe').onclick=()=>DE.open();
