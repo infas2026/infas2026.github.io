@@ -168,4 +168,5 @@ const p=Math.round(score/Q.length*100);$('final').textContent=score+' / '+Q.leng
  $('rev').innerHTML=wrong.map(q=>'<div class="rev"><b>'+q.q+'</b><small>Réponse : '+q.a.map(j=>q.t==='QCD'?(j?'B · Faux':'A · Vrai'):L[j]+' — '+q.o[j]).join(' ; ')+'</small>'+(cleanE(q.e)?'<small>'+cleanE(q.e)+'</small>':'')+'</div>').join('');
  show('end')}
 $('again').onclick=()=>show('setup');
-</script></body></html>
+</script><script src="definitions.js"></script>
+</body></html>

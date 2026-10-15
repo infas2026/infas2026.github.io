@@ -88,4 +88,5 @@ function finish(){const max=Q.length*5,p=Math.round(pts/max*100);$('final').text
  $('msg').textContent=p>=80?'Excellent clinicien 👏':p>=60?'Bon raisonnement, continuez 💪':'Courage : relisez les diagnostics ci-dessous puis recommencez.';
  $('revWrap').hidden=!missed.length;$('rev').innerHTML=missed.map(c=>'<div class="rev"><b>'+c[1]+'</b><br>'+c[4]+'<div class="src">'+(c[5]?'Source : '+c[5]:'Contenu de cours classique : à confronter à ton cours.')+'</div></div>').join('');show('end')}
 $('again').onclick=()=>{chips();show('setup')};
-</script></body></html>
+</script><script src="definitions.js"></script>
+</body></html>

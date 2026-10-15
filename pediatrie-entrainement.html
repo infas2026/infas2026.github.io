@@ -56,6 +56,16 @@ button.b:disabled{opacity:.45;cursor:default}
 .paytel{margin:8px 0 0;font-size:.82rem;opacity:.85}
 .ctx{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:0 0 12px;font-size:.92rem}.ctx summary{font-weight:800;color:var(--brand);cursor:pointer}.ctx div{margin-top:6px}
 .cor h4{margin:14px 0 4px;color:var(--brand)}.cor ul,.cor ol{margin:4px 0 8px;padding-left:20px}.cor table{border-collapse:collapse;width:100%;font-size:.88rem}.cor td,.cor th{border:1px solid var(--line);padding:6px;vertical-align:top;text-align:left}.cor th{background:var(--soft)}
+.qq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.qq.ok{border-color:var(--ok)}.qq.ko{border-color:var(--ko)}
+.qh{margin:0 0 8px;font-weight:600;color:var(--ink)}
+.opts label{display:block;padding:7px 8px;border-radius:8px;cursor:pointer}
+.opts input{margin-right:8px;accent-color:var(--brand)}
+.opts label.good{background:var(--okbg)}.opts label.bad{background:var(--kobg)}
+.fix{margin-top:8px;font-size:.93rem}.fix:empty{display:none}
+.qq.ok .fix>b{color:var(--ok)}.qq.ko .fix>b{color:var(--ko)}
+.bar2{position:sticky;bottom:0;background:var(--bg);padding:10px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line)}
+.bar2 button.b{width:auto;margin:0;flex:1;padding:11px 8px}.bar2 .score{width:100%;font-weight:700;text-align:center}.score:empty{display:none}
 </style></head><body><main>
 
 <div id="setup">
@@ -63,7 +73,7 @@ button.b:disabled{opacity:.45;cursor:default}
   <h2>👶 Exercice spécial d'entraînement</h2>
   <img src="images/couverture-pediatrie.jpg" alt="Couverture du livre Pédiatrie, Exercices et Corrigés, INFAS Licence 3, 2020-2021" style="display:block;width:100%;max-width:360px;margin:0 auto 12px;border-radius:10px;border:1px solid var(--line)">
   <p style="text-align:center;font-size:.85rem"><b>Base :</b> « Pédiatrie · Exercices &amp; Corrigés » · INFAS · Licence 3 · 2020-2021</p>
-  <p>Questions de pédiatrie tirées des sujets D.E de toutes les antennes, tirées au hasard. La correction s'affiche tout de suite après chaque réponse.</p>
+  <p>Questions de pédiatrie tirées des sujets D.E de toutes les antennes, tirées au hasard. Toutes les questions s'affichent ensemble, comme dans EXAMEN SUJET D.E : répondez, puis touchez « Corriger » en bas de la page.</p>
   <div class="lbl">Type de questions</div>
   <div class="chips" id="cType"><button class="chip on" data-v="all">Mélange</button><button class="chip" data-v="QCD">QCD (vrai / faux)</button><button class="chip" data-v="QCM">QCM</button></div>
   <div class="lbl">Nombre de questions</div>
@@ -78,6 +88,8 @@ button.b:disabled{opacity:.45;cursor:default}
  <div class="card" id="qcard"></div>
  <button class="b" id="act">Valider</button>
 </div>
+
+<div id="sheet" hidden><div id="sheetBody"></div><div class="bar2"><button class="b" id="sheetGo">Corriger</button><button class="b alt" id="sheetRs">Recommencer</button><button class="b alt" id="sheetNew">↺ Nouveau tirage</button><span class="score" id="sheetScore"></span></div></div>
 
 <div id="end" hidden>
  <div class="card"><h2>Résultat</h2><div class="big" id="final"></div><p id="msg" style="text-align:center"></p>
@@ -127,11 +139,37 @@ $('cNum').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;num=+b.data
 info();
 const cleanE=e=>/^\s*(Vrai|Faux|Non|Oui)\.?\s*$/i.test(e||'')?'':(e||'');
 function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
-function show(v){['setup','play','end'].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
+function show(v){['setup','play','sheet','end'].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
 $('start').onclick=begin;
-function begin(){if(type==='CAS'){const G={};pool().forEach(q=>(G[q.g]=G[q.g]||[]).push(q));Q=shuffle(Object.keys(G)).flatMap(k=>G[k]).slice(0,num)}else Q=shuffle(pool().slice()).slice(0,num);i=0;score=0;wrong=[];show('play');render()}
+function begin(){if(type==='CAS'){const G={};pool().forEach(q=>(G[q.g]=G[q.g]||[]).push(q));Q=shuffle(Object.keys(G)).flatMap(k=>G[k]).slice(0,num)}else Q=shuffle(pool().slice()).slice(0,num);i=0;score=0;wrong=[];buildSheet();show('sheet')}
 
-/* ===== Questions ===== */
+/* ===== Toutes les questions sur une seule page (comme EXAMEN SUJET D.E) ===== */
+function buildSheet(){let s='',n=0,lastG=null;
+ Q.forEach((q,k)=>{n++;
+  if(q.t==='CAS'){lastG=null;s+='<div class="qq" data-k="'+k+'"><span class="tag">ÉTUDE DE CAS</span><div class="qt">'+q.title+'</div><p style="color:var(--ink)">'+q.q+'</p><div class="lbl">Travail à faire</div><ol>'+q.w.map(x=>'<li>'+x+'</li>').join('')+'</ol><button class="b alt casbtn" data-k="'+k+'">Voir le corrigé</button><div class="fix"></div></div>';return}
+  const cx=q.g&&typeof PED_CTX!=='undefined'?PED_CTX[q.g]:null;
+  if(cx&&q.g!==lastG)s+='<details open class="ctx"><summary>📋 Étude de cas · '+cx.t+'</summary><div>'+cx.h+'</div></details>';
+  lastG=cx?q.g:null;
+  const multi=q.a.length>1,qcd=q.t==='QCD';
+  s+='<div class="qq" data-k="'+k+'"><p class="qh"><b>'+n+'.</b> '+q.q+'</p>'+(multi?'<p class="hint">Plusieurs bonnes réponses : cochez-les toutes.</p>':'')+'<div class="opts">'+q.o.map((t,j)=>'<label><input type="'+(multi?'checkbox':'radio')+'" name="p'+k+'" value="'+j+'">'+(qcd?(j?'B · Faux':'A · Vrai'):L[j]+'. '+t.replace(/^[AB] — /,''))+'</label>').join('')+'</div><div class="fix"></div></div>'});
+ $('sheetBody').innerHTML='<h2>👶 Pédiatrie · '+Q.length+' question'+(Q.length>1?'s':'')+'</h2>'+s;$('sheetScore').textContent='';$('sheetGo').disabled=false}
+function showCas(el){const q=Q[+el.dataset.k];el.querySelector('.fix').innerHTML='<div class="fb ok cor">'+q.c+'</div>';const b=el.querySelector('.casbtn');if(b)b.hidden=true}
+function correctAll(){let ok=0,tot=0;
+ $('sheetBody').querySelectorAll('.qq').forEach(el=>{const q=Q[+el.dataset.k];if(q.t==='CAS'){showCas(el);return}
+  tot++;const labs=[...el.querySelectorAll('label')],sel=[...el.querySelectorAll('input:checked')].map(x=>+x.value);
+  const good=[...q.a].sort().join()===[...sel].sort().join();
+  labs.forEach(l=>{const v=+l.querySelector('input').value;if(q.a.includes(v))l.classList.add('good');else if(sel.includes(v))l.classList.add('bad')});
+  const ans=q.a.map(j=>q.t==='QCD'?(j?'B · Faux':'A · Vrai'):L[j]).join(', ');
+  el.classList.remove('ok','ko');el.classList.add(good?'ok':'ko');
+  el.querySelector('.fix').innerHTML='<b>'+(good?'✔ Correct.':'✘ Incorrect.')+' Réponse : '+ans+'.</b>'+(cleanE(q.e)?' '+cleanE(q.e):'');
+  el.querySelectorAll('input').forEach(i=>i.disabled=true);if(good)ok++});
+ $('sheetScore').textContent=tot?'Score : '+ok+' / '+tot+' ('+Math.round(ok/tot*100)+' %)':'Corrigé affiché';$('sheetGo').disabled=true}
+$('sheetGo').onclick=()=>requireCode(correctAll);
+$('sheetBody').onclick=e=>{const b=e.target.closest('.casbtn');if(b)requireCode(()=>showCas(b.closest('.qq')))};
+$('sheetRs').onclick=()=>{buildSheet();scrollTo(0,0)};
+$('sheetNew').onclick=()=>show('setup');
+
+/* ===== Questions (ancien mode une par une, plus utilisé) ===== */
 function render(){const q=Q[i];sel=[];checked=false;if(q.t==='CAS')return renderCas(q);const multi=q.a.length>1;
  $('cnt').textContent='Question '+(i+1)+' / '+Q.length;$('sc').textContent='Score : '+score;$('pb').style.width=(i/Q.length*100)+'%';
  const cx=q.g&&typeof PED_CTX!=='undefined'?PED_CTX[q.g]:null;
@@ -165,4 +203,5 @@ const p=Math.round(score/Q.length*100);$('final').textContent=score+' / '+Q.leng
  $('rev').innerHTML=wrong.map(q=>'<div class="rev"><b>'+q.q+'</b><small>Réponse : '+q.a.map(j=>q.t==='QCD'?(j?'B · Faux':'A · Vrai'):L[j]+' — '+q.o[j]).join(' ; ')+'</small>'+(cleanE(q.e)?'<small>'+cleanE(q.e)+'</small>':'')+'</div>').join('');
  show('end')}
 $('again').onclick=()=>show('setup');
-</script></body></html>
+</script><script src="definitions.js"></script>
+</body></html>

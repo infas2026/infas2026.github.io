@@ -3,7 +3,7 @@
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1a1f;--card:#14262d;--ink:#e3eef1;--mute:#93aab3;--line:#26414b;--acc:#4fc1b8;--ok:#6fd6a0;--okbg:#153a29;--ko:#ff9a92;--kobg:#42201d;--side:#0a2830}}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
-header{background:var(--side);color:#fff;padding:14px 16px}
+header{background:var(--side);color:#fff;padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top,0px))}
 header h1{margin:0;font-size:1.15rem}header p{margin:2px 0 0;color:var(--sidei);font-size:.85rem}
 .wrap{display:flex;max-width:1100px;margin:0 auto}
 nav{width:330px;flex:none;padding:14px;border-right:1px solid var(--line);max-height:100vh;overflow:auto;position:sticky;top:0;align-self:flex-start}
@@ -33,7 +33,7 @@ main h2{margin:0 0 4px;font-size:1.3rem}
 .big{font-size:2rem;font-weight:800;letter-spacing:.08em;text-align:center;color:var(--acc);border-bottom:3px solid var(--acc);padding:4px 0 8px;margin:0 0 6px}
 .big small{display:block;font-size:.8rem;font-weight:600;letter-spacing:.2em;color:var(--mute);margin-top:2px}
 [hidden]{display:none!important}
-#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:24px 20px 34px;background:linear-gradient(160deg,#2a505d 0%,#21414e 55%,#1d3a46 100%);color:#fff;text-align:center}
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:24px 20px 34px;padding-top:calc(24px + env(safe-area-inset-top,0px));background:linear-gradient(160deg,#2a505d 0%,#21414e 55%,#1d3a46 100%);color:#fff;text-align:center}
 #home .hero{width:auto;height:auto;max-width:100%;max-height:28vh;object-fit:contain;border-radius:26px;border:5px solid #fff;background:#fff;display:block;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 #home h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,7vw,3rem);line-height:1.15;margin:20px 0 10px;font-weight:700;letter-spacing:.01em}
 #home p{max-width:520px;margin:0 0 22px;font-size:clamp(1rem,3.6vw,1.2rem);line-height:1.55;color:#d9eaee}
@@ -204,6 +204,7 @@ table.t th{background:var(--card);color:var(--acc)}
 .homemsg{margin:18px 0 6px;color:#fff;font-size:1.15rem;font-weight:700;font-style:italic;text-align:center;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.45)}
 
 .hbtn.pd{background:#d6457a;font-size:1.25rem;letter-spacing:.06em}
+.hbtn.pv{background:#2e8b57;font-size:1.25rem;letter-spacing:.06em}
 .hbtn.pe{background:#e0701f;font-size:1.25rem;letter-spacing:.06em}
 
 .hrow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;margin-top:-4px}
