@@ -19,13 +19,17 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |
 | `sp.js` + `sante-publique.html` | Bouton **FORMULE SANTÉ PUBLIQUE** de l'accueil : ouvre la page des formules et exercices corrigés |
 | `pd.js` + `resume-pediatrie.html` | Bouton **RÉSUMÉ PÉDIATRIE** de l'accueil (juste après FORMULE SANTÉ PUBLIQUE) : résumé du cours de pédiatrie en 17 chapitres, avec recherche |
+| `ec.js` + `etudes-de-cas.html` | Bouton **ÉTUDES DE CAS** de l'accueil (sous PÉDIATRIE) : études de cas des sujets D.E et du livre de pédiatrie, avec leurs questions corrigées (données dans `ped-train.js` : `PED_CTX` et questions à champ `g`) |
+| `dg.js` + `diagnostic-patient.html` + `diag-data.js` | Bouton **DIAGNOSTIQUE MON PATIENT** (sous ÉTUDES DE CAS) : jeu où les signes d'un patient apparaissent un par un et où il faut trouver la pathologie (35 cas : pédiatrie, médecine, chirurgie, santé publique, santé de la reproduction). Chaque cas peut porter une source (6e élément de la ligne) ; 13 cas sont recoupés avec des sources officielles (OMS, PCIME, MSF, CDC), les autres sont signalés « à confronter à ton cours ». Pour ajouter un cas : une ligne dans la liste `DIAG` de `diag-data.js` |
 | `cm.js` + `classification-medicaments.html` | Bouton **CLASSIFICATION DES MÉDICAMENTS** de l'accueil : page de recherche (posologies, calculs de doses, valeurs normales, termes médicaux) |
 | `sch.js` + `schemas-illustrations.html` + `images/schemas/` | Bouton **SCHÉMA ET ILLUSTRATION** de l'accueil : 57 schémas (code d'accès au clic sur un schéma) |
 | `gl.js` + `glossaire-medical.html` | Bouton **GLOSSAIRE MÉDICAL** de l'accueil : environ 1450 mots, expressions et sigles médicaux du site, avec barre de recherche (insensible aux accents), filtre par catégorie et index alphabétique. Pour ajouter un mot : ajouter une ligne `[mot, catégorie, définition]` dans la liste `DATA` du fichier |
 | `pf.js` + `prefixes-suffixes.html` | Bouton **PRÉFIXES ET SUFFIXES** de l'accueil : environ 100 préfixes et 70 suffixes médicaux, avec leur sens, leur origine et des exemples, recherche intégrée. Pour modifier : listes `P` et `S` du fichier `prefixes-suffixes.html` |
+| `sf.js` + `sage-femme.html` | Bouton **SAGE FEMME** de l'accueil (sous EXAMEN SUJET D.E L3) : sujets rangés par école (D.E ABIDJAN, ABENGOUROU, DALOA, ABOISSO, MAN, KORHOGO, AGBOVILLE, BOUAKÉ, puis « Autres sujets · toutes antennes »), 9 examens actuellement : examen blanc version B (santé de la reproduction / planification familiale, 60 questions, correction à confirmer) GYNECO IDE-SF-M J11 (77 questions, corrigé officiel) et examen blanc Abidjan version C 2025 (50 questions, correction à confirmer) et DE blanc Gynéco-obstétrique Man 2025 (29 questions, correction à confirmer). Pour ajouter un examen : liste `EX` (champ `v` = code de l'école : abj, abg, dal, abo, man, kor, agb, bke ou all) du fichier `sage-femme.html` |
+| `logout.js` | Bouton **Connecté · Se déconnecter** en haut à droite : visible seulement quand un code d'accès valide est enregistré ; il efface le code au clic |
 | `cours-pdf.js` | Bouton **COURS PDF** de l'accueil : un bouton par matière (40 matières) qui ouvre le PDF du dossier `cours-pdf/` |
 | `cours-pdf/` | Déposer ici les PDF des cours ; les noms attendus sont listés dans `LISEZ-MOI.txt` (ex. `pediatrie.pdf`, `sante-publique.pdf`) |
-| `images/` | Photo d'accueil et figures de l'exercice « appareil locomoteur » |
+| `images/` | Couverture du livre de pédiatrie (page PÉDIATRIE), photo d'accueil et figures de l'exercice « appareil locomoteur » |
 | `.nojekyll` | Demande à GitHub Pages de servir les fichiers tels quels |
 
 ## Mettre le site en ligne avec GitHub Pages
@@ -37,7 +41,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 
 ## Accès
 
-Les codes d'accès sont **désactivés** : tout le contenu est en accès libre. Les fichiers `access.js` et `generer-code.html` restent dans le dépôt (le numéro WhatsApp de l'accueil en dépend) ; pour rétablir les codes, remplacer le début de `requireAccess` dans `script.js` par `if(hasAccess(lv)){done();return}`.
+Les boutons de l'accueil (L1, L2, L3, COURS) sont en accès libre. Le code d'accès n'est demandé qu'au moment de voir une correction : bouton « Corriger » des sujets D.E, corrections des exercices, première réponse validée dans l'entraînement PÉDIATRIE et dans ÉTUDES DE CAS (« Voir le corrigé » pour le cas de la démarche de soins). Les fichiers `access.js` et `generer-code.html` restent dans le dépôt (le numéro WhatsApp de l'accueil en dépend) ; pour rétablir les codes, remplacer le début de `requireAccess` dans `script.js` par `if(hasAccess(lv)){done();return}`.
 
 ## Ajouter un cours
 

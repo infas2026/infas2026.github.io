@@ -204,6 +204,7 @@ table.t th{background:var(--card);color:var(--acc)}
 .homemsg{margin:18px 0 6px;color:#fff;font-size:1.15rem;font-weight:700;font-style:italic;text-align:center;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.45)}
 
 .hbtn.pd{background:#d6457a;font-size:1.25rem;letter-spacing:.06em}
+.hbtn.pe{background:#e0701f;font-size:1.25rem;letter-spacing:.06em}
 
 .hrow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;margin-top:-4px}
 .hrow3 .hbtn.sm{padding:14px 6px;font-size:1.05rem;font-weight:800}
@@ -220,3 +221,10 @@ table.t th{background:var(--card);color:var(--acc)}
 @media (prefers-reduced-motion:reduce){.banner{white-space:normal;text-align:center;padding:5px 10px}.banner .bTrack{animation:none;display:block}.banner .bTrack span+span{display:none}.banner .bTrack span{padding-right:0}}
 
 .hbtn.sf{background:#8a3fa0;font-size:1.25rem;letter-spacing:.06em}
+
+.hbtn.ec{background:#7b3fa0;font-size:1.25rem;letter-spacing:.06em}
+#logoutBtn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:8px;z-index:60;display:flex;align-items:center;gap:6px;font:inherit;font-size:.72rem;font-weight:800;padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.15);background:rgba(255,255,255,.92);color:#13233a;box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer}
+#logoutBtn[hidden]{display:none}
+#logoutBtn i{width:8px;height:8px;border-radius:50%;background:#17b26a;display:inline-block}
+
+.hbtn.dg{background:#0b7285;font-size:1.25rem;letter-spacing:.04em}
