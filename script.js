@@ -43,7 +43,7 @@ function store(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e)
 function saveStore(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
 /* Un accès mémorisé reste valable tant que son empreinte figure encore dans access.js */
 function okHash(lv,h){return !!h&&((ACCESS.codes[lv]||[]).includes(h)||(ACCESS.codes.all||[]).includes(h))}
-function hasAccess(lv){const o=store();return okHash(lv,o[lv])||okHash(lv,o.all)}
+function hasAccess(lv){const s=cloudSession();return !!s&&(s.level==='all'||s.level===lv)}
 function refreshLocks(){return;licEl.querySelectorAll('[data-l]').forEach(b=>{const lv=b.dataset.l,ok=hasAccess(lv);b.querySelector('small').textContent=ok?'Accès activé ✓':'🔒 Code d\'accès requis';b.classList.toggle('open',ok)})}
 function fillPay(root){root.querySelectorAll('[data-pay]').forEach(el=>{el.innerHTML='';el.appendChild(document.getElementById('payTpl').content.cloneNode(true));const wa=el.querySelector('[data-wa]');wa.href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent('Bonjour, je souhaite un code d\'accès à « MON D.E INFAS ».');el.querySelector('[data-tel]').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim()})}
 const gate=document.getElementById('gate'),gIn=document.getElementById('gateIn'),gErr=document.getElementById('gateErr');let gLv=null,gDone=null;
@@ -53,10 +53,9 @@ gLv=lv;gDone=done;document.getElementById('gateT').textContent='Code d\'accès �
 function hasAnyAccess(){return ['1','2','3'].some(hasAccess)}
 function requireCorrection(done,msg){if(hasAnyAccess()){done();return}
 gLv='corr';gDone=done;document.getElementById('gateT').textContent='🔒 Code d\'accès requis';document.getElementById('gateP').textContent=msg||'Les corrections sont réservées aux abonnés (1 000 FCFA / mois). Contactez l\'administrateur sur WhatsApp pour obtenir votre code, puis saisissez-le ci-dessous.';gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
-function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
-if(gLv==='corr'){const ha=hashCode('all',code);let hit=(ACCESS.codes.all||[]).includes(ha)?['all',ha]:null;if(!hit)for(const l of ['1','2','3']){const h=hashCode(l,code);if((ACCESS.codes[l]||[]).includes(h)){hit=[l,h];break}}
-if(hit){const o=store();o[hit[0]]=hit[1];saveStore(o);const d=gDone;closeGate();d()}else{gErr.textContent='Code incorrect. Vérifiez-le ou contactez l\'administrateur.';gIn.select()}return}
-const h=hashCode(gLv,code),ha=hashCode('all',code),isAll=(ACCESS.codes.all||[]).includes(ha);if(isAll||(ACCESS.codes[gLv]||[]).includes(h)){const o=store();if(isAll)o.all=ha;else o[gLv]=h;saveStore(o);const d=gDone;closeGate();refreshLocks();d()}else{gErr.textContent='Code incorrect pour la Licence '+gLv+'. Vérifiez-le ou contactez l\'administrateur.';gIn.select()}}
+async function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
+gErr.textContent='Vérification…';const r=await cloudRedeem(gLv==='corr'?null:gLv,code);
+if(r.ok){const d=gDone;closeGate();refreshLocks();d()}else{gErr.textContent=r.msg;gIn.select()}}
 document.getElementById('gateOk').onclick=submitGate;
 gIn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();submitGate()}};
 document.getElementById('gateX').onclick=closeGate;

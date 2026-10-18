@@ -1,14 +1,180 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Générateur de codes d'accès – PREPA INFAS 2026</title>
-<style>body{font:16px/1.5 system-ui,sans-serif;max-width:560px;margin:0 auto;padding:20px;background:#f3f7f8;color:#12303a}h1{font-size:1.3rem}select,button{font:inherit;padding:10px 14px;border-radius:8px;border:1px solid #0b7a75}button{background:#0b7a75;color:#fff;cursor:pointer;font-weight:600}.box{background:#fff;border:1px solid #d3e0e4;border-radius:10px;padding:14px;margin-top:16px;display:none}code{display:block;word-break:break-all;background:#eef4f5;padding:8px;border-radius:6px;margin:6px 0 12px;font-size:.85rem}.c{font-size:1.8rem;font-weight:800;letter-spacing:.15em;color:#0b7a75}</style></head><body>
-<h1>Générateur de codes d'accès</h1>
-<p>Réservé à l'administrateur. Choisissez la licence, générez un code, <b>envoyez le code à l'abonné</b> et collez la ligne d'empreinte dans <code style="display:inline;padding:2px 6px">access.js</code>.</p>
-<p><select id="lv"><option value="1">Licence 1</option><option value="2">Licence 2</option><option value="3">Licence 3</option><option value="all">Toutes les licences</option></select> <button id="g">Générer un code</button></p>
-<div class="box" id="out"><div>Code à donner à l'abonné :</div><div class="c" id="c"></div><div>À ajouter dans <b>access.js</b>, dans la liste <b>codes → <span id="n"></span></b> (séparée par des virgules) :</div><code id="h"></code><div>Pour <b>retirer</b> un abonné, supprimez son empreinte de la liste.</div></div>
+<title>Administration des codes d'accès – PREPA INFAS 2026</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;max-width:620px;margin:0 auto;padding:20px;background:#f3f7f8;color:#12303a}
+h1{font-size:1.3rem}h2{font-size:1.05rem;margin:0 0 8px}
+select,input,button{font:inherit;padding:10px 14px;border-radius:8px;border:1px solid #0b7a75;max-width:100%}
+input{width:100%;border-color:#b9cdd2}
+button{background:#0b7a75;color:#fff;cursor:pointer;font-weight:600}
+button.sec{background:#fff;color:#0b7a75}button.dan{background:#fff;color:#a13b2a;border-color:#a13b2a}
+.card{background:#fff;border:1px solid #d3e0e4;border-radius:10px;padding:14px;margin-top:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1 1 140px}.row>button{flex:0 0 auto}
+.c{font-size:1.8rem;font-weight:800;letter-spacing:.15em;color:#0b7a75;margin:6px 0}
+.msg{margin-top:8px;font-size:.92rem;min-height:1.3em}.err{color:#a13b2a}.ok{color:#0b7a75}
+.hidden{display:none!important}small{color:#4d6870}
+</style></head><body>
+<h1>Administration des codes d'accès</h1>
+<p><small>Réservé à l'administrateur. Les codes sont enregistrés dans Firestore : un code ne peut servir que sur un appareil à la fois.</small></p>
+
+<div class="card" id="loginBox">
+  <h2>Connexion</h2>
+  <div class="row"><input id="em" type="email" placeholder="Adresse e-mail administrateur" autocomplete="username"></div>
+  <div class="row" style="margin-top:8px"><input id="pw" type="password" placeholder="Mot de passe" autocomplete="current-password"><button id="login">Se connecter</button></div>
+  <div class="msg err" id="loginMsg"></div>
+</div>
+
+<div id="admin" class="hidden">
+  <div class="card">
+    <h2>Générer un code</h2>
+    <div class="row">
+      <select id="lv"><option value="1">Licence 1</option><option value="2">Licence 2</option><option value="3">Licence 3</option><option value="all">Toutes les licences</option></select>
+      <input id="jours" type="number" min="1" max="3650" value="30" aria-label="Durée en jours">
+      <button id="gen">Générer</button>
+    </div>
+    <small>Durée en jours, comptée à partir de la première connexion (30 = 1 mois).</small>
+    <div id="out" class="hidden">
+      <div>Code à donner à l'abonné :</div>
+      <div class="c" id="code"></div>
+    </div>
+    <div class="msg" id="genMsg"></div>
+  </div>
+
+  <div class="card">
+    <h2>Modifier la durée d'un code</h2>
+    <div class="row"><input id="chgCode" placeholder="Code (XXXX-XXXX)" autocomplete="off"><input id="chgDays" type="number" min="1" max="3650" placeholder="Nouvelle durée (jours)"><button class="sec" id="chg">Modifier</button></div>
+    <small>Si le code est déjà activé, la date de fin est recalculée à partir de sa première connexion.</small>
+    <div class="msg" id="chgMsg"></div>
+  </div>
+
+  <div class="card">
+    <h2>Révoquer un code</h2>
+    <div class="row"><input id="revCode" placeholder="Code (XXXX-XXXX)" autocomplete="off"><button class="dan" id="rev">Supprimer</button></div>
+    <div class="msg" id="revMsg"></div>
+  </div>
+
+  <div class="card">
+    <h2>Anciens codes (access.js)</h2>
+    <small>Crée dans Firestore les codes déjà distribués, sans les changer. À faire une seule fois.</small>
+    <div class="row" style="margin-top:8px"><button class="sec" id="mig">Importer les anciens codes</button></div>
+    <div class="msg" id="migMsg"></div>
+    <div class="row" style="margin-top:12px"><button class="dan" id="delOld">Supprimer les anciens codes</button></div>
+    <small>Supprime de Firestore les codes listés dans access.js. Les abonnés concernés perdront l'accès immédiatement.</small>
+    <div class="msg" id="delMsg"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="access.js"></script>
+<script src="acces-cloud.js"></script>
 <script>
-const AL="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-document.getElementById('g').onclick=()=>{const lv=document.getElementById('lv').value,a=crypto.getRandomValues(new Uint32Array(8));let c='';a.forEach(v=>c+=AL[v%AL.length]);
-document.getElementById('c').textContent=c.slice(0,4)+'-'+c.slice(4);document.getElementById('n').textContent=lv;document.getElementById('h').textContent='"'+hashCode(lv,c)+'"';document.getElementById('out').style.display='block'};
-</script></body></html>
+const ADMIN_EMAIL = "koffivalere1945@gmail.com"; // doit correspondre aux règles Firestore
+const DAY = 86400000;
+const AL = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const $ = id => document.getElementById(id);
+let fb = null;
+
+function say(id, text, ok) { const el = $(id); el.textContent = text; el.className = "msg " + (ok ? "ok" : "err"); }
+function randomCode() {
+  const a = crypto.getRandomValues(new Uint32Array(8));
+  let c = ""; a.forEach(v => c += AL[v % AL.length]);
+  return c.slice(0, 4) + "-" + c.slice(4);
+}
+
+async function findCode(code) {
+  const c = cloudNorm(code);
+  for (const l of ["1", "2", "3", "all"]) {
+    const id = hashCode(l, c);
+    const s = await fb.db.collection("codes").doc(id).get();
+    if (s.exists) return { id, data: s.data() };
+  }
+  return null;
+}
+
+$("login").onclick = async () => {
+  try {
+    await cloudInit();
+    fb = { auth: firebase.auth(), db: firebase.firestore() };
+    await fb.auth.signInWithEmailAndPassword($("em").value.trim(), $("pw").value);
+    if (fb.auth.currentUser.email !== ADMIN_EMAIL) {
+      await fb.auth.signOut();
+      return say("loginMsg", "Ce compte n'est pas autorisé.");
+    }
+    $("loginBox").classList.add("hidden");
+    $("admin").classList.remove("hidden");
+  } catch (e) {
+    say("loginMsg", "Connexion refusée : " + (e.code || e.message));
+  }
+};
+
+$("gen").onclick = async () => {
+  const lv = $("lv").value;
+  const jours = Math.min(3650, Math.max(1, parseInt($("jours").value, 10) || 30));
+  const code = randomCode();
+  try {
+    await fb.db.collection("codes").doc(hashCode(lv, code)).set({
+      level: lv, jours, activation: null, expiresAt: null, uid: null, lastSeen: 0, cree: Date.now()
+    });
+    $("code").textContent = code;
+    $("out").classList.remove("hidden");
+    say("genMsg", "Code créé. Envoyez-le à l'abonné.", true);
+  } catch (e) { say("genMsg", "Échec : " + e.message); }
+};
+
+$("chg").onclick = async () => {
+  const jours = parseInt($("chgDays").value, 10);
+  if (!jours || jours < 1) return say("chgMsg", "Indiquez une durée en jours.");
+  try {
+    const f = await findCode($("chgCode").value);
+    if (!f) return say("chgMsg", "Code introuvable.");
+    const upd = { jours };
+    if (f.data.activation) upd.expiresAt = f.data.activation + jours * DAY;
+    await fb.db.collection("codes").doc(f.id).update(upd);
+    say("chgMsg", "Durée modifiée : " + jours + " jours.", true);
+  } catch (e) { say("chgMsg", "Échec : " + e.message); }
+};
+
+$("rev").onclick = async () => {
+  try {
+    const f = await findCode($("revCode").value);
+    if (!f) return say("revMsg", "Code introuvable.");
+    if (!confirm("Supprimer ce code ? L'abonné perdra l'accès immédiatement.")) return;
+    await fb.db.collection("codes").doc(f.id).delete();
+    say("revMsg", "Code supprimé.", true);
+  } catch (e) { say("revMsg", "Échec : " + e.message); }
+};
+
+$("delOld").onclick = async () => {
+  const total = Object.values(ACCESS.codes).reduce((n, l) => n + l.length, 0);
+  if (!confirm("Supprimer les " + total + " anciens codes ? Les abonnés concernés perdront l'accès immédiatement. Cette action est irréversible.")) return;
+  let n = 0;
+  try {
+    for (const lv of Object.keys(ACCESS.codes)) {
+      for (const h of ACCESS.codes[lv]) {
+        await fb.db.collection("codes").doc(h).delete();
+        n++;
+      }
+    }
+    say("delMsg", n + " ancien(s) code(s) supprimé(s).", true);
+  } catch (e) { say("delMsg", "Échec après " + n + " suppression(s) : " + e.message); }
+};
+
+$("mig").onclick = async () => {
+  let n = 0;
+  try {
+    for (const lv of Object.keys(ACCESS.codes)) {
+      for (const h of ACCESS.codes[lv]) {
+        const ref = fb.db.collection("codes").doc(h);
+        if (!(await ref.get()).exists) {
+          await ref.set({ level: lv, jours: 30, activation: null, expiresAt: null, uid: null, lastSeen: 0, migre: true });
+          n++;
+        }
+      }
+    }
+    say("migMsg", n + " ancien(s) code(s) importé(s).", true);
+  } catch (e) { say("migMsg", "Échec : " + e.message); }
+};
+</script>
+</body></html>
