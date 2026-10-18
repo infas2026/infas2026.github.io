@@ -30,12 +30,21 @@ button.sec{background:#fff;color:#0b7a75}button.dan{background:#fff;color:#a13b2
     <div class="row">
       <select id="lv"><option value="1">Licence 1</option><option value="2">Licence 2</option><option value="3">Licence 3</option><option value="all">Toutes les licences</option></select>
       <input id="jours" type="number" min="1" max="3650" value="30" aria-label="Durée en jours">
+      <input id="nb" type="number" min="1" max="2000" value="1" aria-label="Nombre de codes">
       <button id="gen">Générer</button>
     </div>
-    <small>Durée en jours, comptée à partir de la première connexion (30 = 1 mois).</small>
+    <div class="row" style="margin-top:8px">
+      <button class="sec" data-n="10">10</button>
+      <button class="sec" data-n="50">50</button>
+      <button class="sec" data-n="100">100</button>
+      <button class="sec" data-n="200">200</button>
+      <button class="sec" data-n="500">500</button>
+    </div>
+    <small>Durée en jours, comptée à partir de la première connexion (30 = 1 mois). Nombre : saisissez-le librement, jusqu'à 2000 codes.</small>
     <div id="out" class="hidden">
-      <div>Code à donner à l'abonné :</div>
-      <div class="c" id="code"></div>
+      <div style="margin-top:12px">Codes à donner aux abonnés :</div>
+      <textarea id="codes" readonly rows="10" style="width:100%;font:15px/1.6 ui-monospace,monospace;padding:10px;border:1px solid #b9cdd2;border-radius:8px;margin-top:6px"></textarea>
+      <div class="row" style="margin-top:8px"><button class="sec" id="copy">Copier la liste</button></div>
     </div>
     <div class="msg" id="genMsg"></div>
   </div>
@@ -109,18 +118,50 @@ $("login").onclick = async () => {
   }
 };
 
+document.querySelectorAll("[data-n]").forEach(b => {
+  b.onclick = () => { $("nb").value = b.dataset.n; };
+});
+
 $("gen").onclick = async () => {
   const lv = $("lv").value;
   const jours = Math.min(3650, Math.max(1, parseInt($("jours").value, 10) || 30));
-  const code = randomCode();
+  const nb = Math.min(2000, Math.max(1, parseInt($("nb").value, 10) || 1));
+  const created = [];
+  const seen = new Set();
   try {
-    await fb.db.collection("codes").doc(hashCode(lv, code)).set({
-      level: lv, jours, activation: null, expiresAt: null, uid: null, lastSeen: 0, cree: Date.now()
-    });
-    $("code").textContent = code;
+    // Création des codes uniques
+    const items = [];
+    while (items.length < nb) {
+      const code = randomCode();
+      const id = hashCode(lv, code);
+      if (seen.has(id)) continue;
+      seen.add(id);
+      items.push({ code, id });
+    }
+    // Enregistrement par tranches de 400 (limite Firestore : 500 par envoi)
+    for (let i = 0; i < items.length; i += 400) {
+      const batch = fb.db.batch();
+      items.slice(i, i + 400).forEach(it => {
+        batch.set(fb.db.collection("codes").doc(it.id), {
+          level: lv, jours, activation: null, expiresAt: null, uid: null, lastSeen: 0, cree: Date.now()
+        });
+        created.push(it.code);
+      });
+      await batch.commit();
+      say("genMsg", "Enregistrement… " + created.length + " / " + nb, true);
+    }
+    $("codes").value = created.join("\n");
     $("out").classList.remove("hidden");
-    say("genMsg", "Code créé. Envoyez-le à l'abonné.", true);
-  } catch (e) { say("genMsg", "Échec : " + e.message); }
+    say("genMsg", created.length + " code(s) créé(s). Copiez la liste maintenant.", true);
+  } catch (e) {
+    say("genMsg", "Échec après " + created.length + " code(s) : " + e.message);
+  }
+};
+
+$("copy").onclick = async () => {
+  const v = $("codes");
+  try { await navigator.clipboard.writeText(v.value); say("genMsg", "Liste copiée.", true); }
+  catch (e) { v.select(); document.execCommand("copy"); say("genMsg", "Liste copiée.", true); }
 };
 
 $("chg").onclick = async () => {
