@@ -1,0 +1,44 @@
+rules_version = '2';
+// Règles Firestore — à coller dans la console Firebase > Firestore > Règles.
+// Remplacer ADMIN_EMAIL par l'adresse de l'administrateur (compte créé dans Authentication).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function estAdmin() {
+      return request.auth != null && request.auth.token.email == "ADMIN_EMAIL";
+    }
+    function maintenant() {
+      return request.time.toMillis();
+    }
+
+    match /codes/{id} {
+      // Lecture d'un code précis seulement, jamais la liste de tous les codes
+      allow get: if request.auth != null;
+      allow list: if false;
+
+      // Création et suppression : administrateur uniquement
+      allow create, delete: if estAdmin();
+
+      // Mise à jour : l'administrateur peut tout modifier.
+      // Un appareil ne peut toucher qu'aux champs de présence et d'activation, et seulement si :
+      //  - le code est libre, ou déjà à cet appareil, ou son appareil ne donne plus signe depuis 5 min ;
+      //  - la date de fin n'est pas dépassée ;
+      //  - la date de fin n'est fixée qu'une fois (première connexion), et ne peut pas être prolongée.
+      allow update: if estAdmin() || (
+        request.auth != null
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['uid', 'lastSeen', 'activation', 'expiresAt'])
+        && (resource.data.activation == null || resource.data.expiresAt > maintenant())
+        && (resource.data.uid == null
+            || resource.data.uid == request.auth.uid
+            || resource.data.lastSeen < maintenant() - 300000)
+        && (request.resource.data.uid == null || request.resource.data.uid == request.auth.uid)
+        && (resource.data.activation != null
+            || request.resource.data.expiresAt <= maintenant() + resource.data.jours * 86400000 + 60000)
+        && (resource.data.activation == null
+            || (request.resource.data.expiresAt == resource.data.expiresAt
+                && request.resource.data.activation == resource.data.activation))
+      );
+    }
+  }
+}

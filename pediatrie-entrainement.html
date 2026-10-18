@@ -103,10 +103,6 @@ button.b:disabled{opacity:.45;cursor:default}
 <div id="gate" class="gate" hidden role="dialog" aria-modal="true" aria-labelledby="gateT"><div class="gatebox"><button class="gx" id="gateX" aria-label="Fermer">×</button><h2 id="gateT">🔒 Code d'accès requis</h2><p id="gateP">L'entraînement avec correction est réservé aux abonnés (1 000 FCFA / mois). Contactez l'administrateur sur WhatsApp pour obtenir votre code, puis saisissez-le ci-dessous.</p><div class="gin"><input id="gateIn" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX" maxlength="16"><button id="gateOk">Valider</button></div><div id="gateErr" role="alert"></div><div class="paybox"><h3>🔓 Obtenir un code d'accès</h3><p class="prices"><b>Inscription</b><span><strong>1 000 FCFA</strong> / mois</span></p><p class="paysub">Scannez le QR code avec l'application <b>Wave</b> pour payer.</p><img class="qr" src="images/wave-qr.jpg" alt="QR code Wave pour payer l'inscription"><p class="paysub">Après le paiement, l'administrateur vous envoie votre code d'accès.</p><a class="wa" target="_blank" rel="noopener" id="payWa" href="#">💬 Contacter l'administrateur sur WhatsApp</a><p class="paytel">WhatsApp : <b id="payTel"></b> · pour plus d'informations</p></div></div></div>
 
 <script src="access.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="acces-cloud.js"></script>
 <script src="ped-train.js"></script>
 <script>
 const $=id=>document.getElementById(id),L='ABCDEF';
@@ -117,13 +113,14 @@ const KEY='infas_acces',gate=$('gate'),gIn=$('gateIn'),gErr=$('gateErr');let gDo
 function store(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
 function saveStore(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
 function okHash(lv,h){return !!h&&((ACCESS.codes[lv]||[]).includes(h)||(ACCESS.codes.all||[]).includes(h))}
-function hasAnyAccess(){return !!cloudSession()}
+function hasAnyAccess(){const o=store();return ['1','2','3'].some(l=>okHash(l,o[l])||okHash(l,o.all))}
 function closeGate(){gate.hidden=true;gDone=null;document.body.style.overflow=''}
 function requireCode(done){if(hasAnyAccess()){done();return}
  gDone=done;gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
-async function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
-gErr.textContent='Vérification…';const r=await cloudRedeem(null,code);
-if(r.ok){const d=gDone;closeGate();d()}else{gErr.textContent=r.msg;gIn.select()}}
+function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
+ const ha=hashCode('all',code);let hit=(ACCESS.codes.all||[]).includes(ha)?['all',ha]:null;
+ if(!hit)for(const l of ['1','2','3']){const h=hashCode(l,code);if((ACCESS.codes[l]||[]).includes(h)){hit=[l,h];break}}
+ if(hit){const o=store();o[hit[0]]=hit[1];saveStore(o);const d=gDone;closeGate();d()}else{gErr.textContent="Code incorrect. Vérifiez-le ou contactez l'administrateur.";gIn.select()}}
 $('gateOk').onclick=submitGate;gIn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();submitGate()}};
 $('gateX').onclick=closeGate;gate.onclick=e=>{if(e.target===gate)closeGate()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!gate.hidden)closeGate()});
