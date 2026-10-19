@@ -4,7 +4,7 @@
    Pour ajouter / retirer un abonné : ajouter / supprimer une empreinte dans la liste du niveau.
    Les empreintes se génèrent avec generer-code.html. */
 const ACCESS={
-  admin:{tel:"0759718750",wa:"2250759718750"},
+  admin:{tel:"0171112225",wa:"2250171112225"},
   prix:{mois:"1 000 FCFA",an:"5 000 FCFA"},
   codes:{
     1:["dccf982009e9f40de34762cd6db6294d6d5f7e5677d4a594b701e29cc0197b35"],
