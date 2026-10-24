@@ -196,14 +196,14 @@ S(13,["Péroné","Tibia","Rotule"],2,"N°13 : rotule, devant le genou."),
 S(18,["Sternum","Manubrium sternal","Acromion"],1,"N°18 : manubrium sternal, partie haute du sternum."),
 S(5,["Clavicule","Apophyse coracoïde","Acromion"],1,"N°5 : apophyse coracoïde de l'omoplate."),
 S(28,["Métacarpe","Carpe","Phalanges"],2,"N°28 : phalanges des doigts."),
-Q("Il s'agit de la coupe :",["Frontale","Sagittale","Transversale"],0,"Vue de face du squelette : coupe frontale (coronale). Options proposées par moi, l'énoncé est à compléter.")
+Q("Il s'agit de la coupe :",["Frontale","Sagittale","Transversale"],0,"Vue de face du squelette : coupe frontale (coronale). ")
 ];
 const P2s=sec(P2,1);P2s[0][5]="Partie 2 · Squelette (vue de face)"+"</div>"+img("sk","Squelette humain vu de face, numéroté de 1 à 31")+"<div hidden>";
 const CR=[
 ["N°1","Pariétal","Occipital",0],["N°9","Ethmoïde","Lacrymal",1],["N°3","Sphénoïde","Temporal",1],["N°5","Frontal","Zygomatique",0],["N°11","Maxillaire","Mandibule",1],["N°2","Pariétal","Occipital",1],["N°4","Sphénoïde","Zygomatique",1],["N°10","Maxillaire","Mandibule",0],["N°7","Ethmoïde","Lacrymal",0],["N°6","Sphénoïde","Temporal",0],["N°8","Maxillaire","Nasal",1]
 ].map(c=>Q("Que désigne le "+c[0]+" ?",[c[1],c[2]],c[3],"Réponse : "+[c[1],c[2]][c[3]]+"."));
 CR[2][3]="N°3 : os temporal. À confirmer avec votre cours.";CR[9][3]="N°6 : sphénoïde (petite zone rose). À confirmer avec votre cours.";CR[8][3]="N°7 : ethmoïde. À confirmer avec votre cours.";CR[1][3]="N°9 : lacrymal (unguis). À confirmer avec votre cours.";
-CR.push(Q("De quelle vue s'agit-il ?",["Vue latérale (de profil)","Vue antérieure","Vue postérieure"],0,"Le crâne est vu de profil. Options proposées par moi, l'énoncé est à compléter."));
+CR.push(Q("De quelle vue s'agit-il ?",["Vue latérale (de profil)","Vue antérieure","Vue postérieure"],0,"Le crâne est vu de profil. "));
 const CRs=sec(CR,1);CRs[0][5]="Crâne (vue latérale)</div>"+img("cr","Crâne vu de profil, numéroté de 1 à 11")+"<div hidden>";
 const RG=["Hypochondre droit","Épigastre","Hypochondre gauche","Flanc droit","Région ombilicale","Flanc gauche","Fosse iliaque droite","Hypogastre","Fosse iliaque gauche"];
 const AB=[[5,4],[2,1],[9,8],[6,5],[7,6],[1,0],[3,2],[4,3],[8,7]].map(a=>Q("Que représente l'élément n° "+a[0]+" ?",RG,a[1],"N°"+a[0]+" : "+RG[a[1]]+"."));
