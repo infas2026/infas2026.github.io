@@ -13,7 +13,7 @@ Site de préparation au diplôme d'État **IDE et SF** : exercices corrigés (QC
 | `generer-code.html` | Page de l'administrateur pour créer un nouveau code et son empreinte |
 | `data.js` | Sommaire (49 épreuves) et exercices corrigés (3 253 questions) |
 | `cours.js` | Cours rédigés (HTML + schémas SVG originaux) |
-| `de.js` | Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa, Aboisso, Man, Korhogo et Agboville (blocs B 2026, versions A, C et D) (bouton **SUJET D.E L3** de l'accueil) |
+| `de.js` | Page classée par **année → antenne → matière** (l'année vient du champ `y` du sujet, sinon de l'année écrite dans son titre ; les sujets de septembre 2026 des 5 antennes sont ajoutés en bas du bloc de données, les questions sans correction ont `a:[]` et sont signalées « correction en cours de rédaction »). Sujets du Diplôme d'État (D.E) d'Abidjan, Abengourou, Daloa, Aboisso, Man, Korhogo et Agboville (blocs B 2026, versions A, C et D) (bouton **SUJET D.E L3** de l'accueil) |
 | `jeu.js` | Jeu quiz : QCM tirés au hasard de tous les exercices (`data.js` + `de.js`, environ 1 250 questions) ; à la fin, le « Diplôme d'État D.E — Félicitations » s'affiche (bouton **JEU QUIZ** de l'accueil) |
 | `docs.js` | Boutons **DICTIONNAIRE MÉDICAL** (gauche) et **ATLAS IMAGE ANATOMIE** (droite) de l'accueil : lecteur des PDF du dossier `docs/` |
 | `docs/` | `atlas-anatomie.pdf` (polycopié d'anatomie illustré, Lille 2017, 483 p.) ; `dictionnaire-medical.pdf` à déposer ici pour activer le dictionnaire |

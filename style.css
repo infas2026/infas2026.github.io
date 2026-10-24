@@ -229,3 +229,12 @@ table.t th{background:var(--card);color:var(--acc)}
 #logoutBtn i{width:8px;height:8px;border-radius:50%;background:#17b26a;display:inline-block}
 
 .hbtn.dg{background:#0b7285;font-size:1.25rem;letter-spacing:.04em}
+
+.deYear,.deSch{margin:10px 0}
+.deYear>summary,.deSch>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 14px}
+.deYear>summary{font-size:1.15rem;border-left:5px solid var(--acc)}
+.deSch>summary{font-size:1rem;margin-top:8px;font-weight:700}
+.deYear>summary::-webkit-details-marker,.deSch>summary::-webkit-details-marker{display:none}
+.deYear>summary span,.deSch>summary span{color:var(--mute);font-size:.82rem;font-weight:400;white-space:nowrap}
+.deYear>.deSch{margin-left:8px}
+.deCat{margin:14px 0 0 4px;font-size:.95rem;color:var(--mute)}
