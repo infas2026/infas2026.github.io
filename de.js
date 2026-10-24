@@ -3222,7 +3222,7 @@ function schools(){
   let h='<p class="deMu">Choisissez une année : les antennes et leurs sujets sont rangés dessous.</p>';
   ys.forEach(y=>{
     const sk=Object.keys(Y[y]).sort((a,b)=>Y[y][b].length-Y[y][a].length),n=sk.reduce((t,k)=>t+Y[y][k].length,0);
-    h+=`<details class="deYear" data-k="y${y}" ${isOpen('y'+y)?'open':''}><summary><b>${y==='NAT2025'?'EXAMEN NATIONAL 2025 IDE':y==='0'?'Autres années · année non précisée':'Sujets '+y}</b><span>${n} sujets · ${sk.length} antenne${sk.length>1?'s':''}</span></summary>`;
+    h+=`<details class="deYear" data-k="y${y}" ${isOpen('y'+y)?'open':''}><summary><b>${y==='NAT2025'?'EXAMEN NATIONAL 2025 IDE':y==='0'?'Autres années · année non précisée':'Sujet D.E blanc '+y}</b><span>${n} sujets · ${sk.length} antenne${sk.length>1?'s':''}</span></summary>`;
     sk.forEach(k=>{
       const nm=SCHOOLS.find(z=>z[0]===k)[1],it=Y[y][k];
       h+=`<details class="deSch" data-k="s${y}${k}" ${isOpen('s'+y+k)?'open':''}><summary>🏫 ${nm}<span>${it.length} sujets</span></summary>`;
