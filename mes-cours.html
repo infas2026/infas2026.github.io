@@ -42,8 +42,19 @@ td:first-child,th:first-child{text-align:left}
 .rst{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit;margin-top:10px}
 details{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:0 14px}summary{cursor:pointer;font-weight:700;padding:12px 0;color:var(--ink)}details[open]>summary{border-bottom:1px solid var(--line);margin-bottom:8px}details h2{font-size:1.15rem}.note{color:var(--mut)}.lnk{display:block;margin-top:6px;color:var(--teal);font-weight:600}#back{position:fixed;right:14px;bottom:14px;z-index:9;background:var(--flame);color:#fff;border:0;border-radius:24px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)}#back[hidden]{display:none}.home+.home{margin-top:10px}.home{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:6px solid var(--flame);border-radius:8px;padding:16px;font:inherit;cursor:pointer}.home b{display:block;font:700 1.15rem Georgia,serif;color:var(--teal);margin-bottom:4px}.home span{color:var(--mut);font-size:.95rem}nav .ttl{max-width:820px;margin:auto;padding:8px 18px 0;font-weight:700;color:var(--teal);font-size:.9rem}nav[hidden]{display:none}</style>
 <style>.home{display:flex!important;align-items:center;gap:12px;text-align:left}.home .ico{flex:0 0 56px;width:56px;height:56px;display:block}.home .ico svg{display:block;width:56px;height:56px}.home .txt{flex:1;min-width:0;display:block}</style>
+<style>
+/* Barre de navigation : retour en arrière + accueil du site */
+#topbar{position:sticky;top:0;z-index:30;height:48px;background:var(--bg);border-bottom:1px solid var(--line)}
+#topbar .tbin{max-width:820px;margin:auto;height:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px}
+#topbar button{font:inherit;font-size:.92rem;font-weight:700;min-height:36px;padding:0 14px;border-radius:20px;border:1px solid var(--teal);cursor:pointer;white-space:nowrap}
+#tbBack{background:var(--card);color:var(--teal)}
+#tbHome{background:var(--teal);color:#fff}
+nav{top:48px}
+.score{top:100px}
+</style>
 </head>
 <body>
+<div id="topbar"><div class="tbin"><button type="button" id="tbBack" aria-label="Retour à l’écran précédent">← Retour</button><button type="button" id="tbHome" aria-label="Retour à la page d’accueil du site">🏠 Accueil du site</button></div></div>
 <header>
 <h1>Mes cours</h1>
 <p>Licence 1 – IDE / Sage-femme</p>
@@ -5419,6 +5430,34 @@ function go(){
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',go); else go();
 window.addEventListener('hashchange',go);
+})();
+</script>
+<script>
+/* Boutons « Retour » (écran précédent) et « Accueil du site » */
+(function(){
+var hist=[],cur='accueil',fwd=0,inFrame=window.parent!==window;
+var oTab=window.tab,oGoto=window.goto;
+window.tab=function(t){
+  if(t!==cur){hist.push({t:cur,y:window.scrollY});if(hist.length>60)hist.shift();cur=t}
+  oTab(t)};
+window.goto=function(id,from){fwd=hist.length;oGoto(id,from)};
+var bk=document.getElementById('back');
+if(bk)bk.addEventListener('click',function(){hist.length=Math.min(hist.length,fwd)});
+function leave(kind){
+  if(inFrame){try{parent.postMessage({mesCours:kind},'*')}catch(e){}return}
+  if(kind==='back'&&history.length>1){history.back();return}
+  location.href='index.html'}
+document.getElementById('tbBack').onclick=function(){
+  if(cur==='accueil'){
+    var l=document.getElementById('liste-cours');
+    if(l&&!l.hidden){l.hidden=true;scrollTo(0,0);return}
+    leave('back');return}
+  var h=hist.pop();
+  cur=h?h.t:'accueil';
+  oTab(cur);
+  if(bk)bk.hidden=true;
+  scrollTo(0,h?h.y:0)};
+document.getElementById('tbHome').onclick=function(){leave('home')};
 })();
 </script>
 </body>
