@@ -6165,7 +6165,7 @@ main.addEventListener('click',e=>{
   else if(a==='mc'){el.hidden=true;document.getElementById('home').hidden=true;document.getElementById('chMc').click();scrollTo(0,0)}
   else if(a==='lk'){
     const c=+b.dataset.c,j=+b.dataset.j,sub=CATS[c].s[j];
-    const link='https://claude.ai/artifact/CdofV6CJkJEJ1Sx5AGhLVH#sujet-'+c+'-'+j;
+    const link=siteLink(c,j);
     const txt='📝 Sujet D.E blanc : '+sub.t+'\nViens le traiter avec moi !\n'+link;
     const old=document.getElementById('shareBox');if(old)old.remove();
     const box=document.createElement('div');box.id='shareBox';box.className='deCard';
@@ -6188,7 +6188,7 @@ main.addEventListener('click',e=>{
   else if(a==='share'){
     const old=document.getElementById('shareBox');if(old)old.remove();
     const ARTICLE_URL='https://claude.ai/artifact/CdofV6CJkJEJ1Sx5AGhLVH';
-    const link=ARTICLE_URL+'#sujet-'+ci+'-'+CATS[ci].s.indexOf(cur);
+    const link=siteLink(ci,CATS[ci].s.indexOf(cur));
     let txt='📝 Sujet D.E blanc : '+cur.t+'\n';
     if(done){let pts=0,n=0;cur.qs.forEach((q,i)=>{if(!q.a.length)return;n++;const u=ans[i]||[];if(u.length&&same(u,q.a))pts++;else if(u.length&&q.t==='QCD')pts--});
       txt+='Mon score : '+pts+' / '+n+' (soit '+(Math.max(0,pts)/(n||1)*20).toFixed(1)+' / 20)\n'}
@@ -12589,4 +12589,34 @@ window.addEventListener('hashchange',go);
 <\/script>
 </body>
 </html>
-</script></body></html>
+</script><script>
+function siteLink(c,j){
+  if(location.hostname.endsWith('github.io'))return new URL('sujets/sujet-'+c+'-'+j+'.html',location.href).href;
+  return 'https://claude.ai/artifact/CdofV6CJkJEJ1Sx5AGhLVH#sujet-'+c+'-'+j;
+}
+</script>
+<script>
+(function(){
+  let current=null;
+  async function check(){
+    if(!navigator.onLine)return;
+    try{
+      const r=await fetch('version.json?t='+Date.now(),{cache:'no-store'});
+      const v=(await r.json()).version;
+      if(current===null){current=v;return}
+      if(v!==current)showBanner();
+    }catch(e){}
+  }
+  function showBanner(){
+    if(document.getElementById('updBanner'))return;
+    const b=document.createElement('div');
+    b.id='updBanner';
+    b.style.cssText='position:fixed;left:0;right:0;bottom:0;background:#0b7a75;color:#fff;padding:12px;text-align:center;z-index:9999';
+    b.innerHTML='Nouvelle version du site disponible. <button onclick="location.reload()" style="margin-left:8px">Actualiser</button>';
+    document.body.appendChild(b);
+  }
+  check();
+  setInterval(check,60*60*1000);
+})();
+</script>
+</body></html>
