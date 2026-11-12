@@ -238,3 +238,16 @@ table.t th{background:var(--card);color:var(--acc)}
 .deYear>summary span,.deSch>summary span{color:var(--mute);font-size:.82rem;font-weight:400;white-space:nowrap}
 .deYear>.deSch{margin-left:8px}
 .deCat{margin:14px 0 0 4px;font-size:.95rem;color:var(--mute)}
+
+/* Minuteur des sujets D.E (2 min par question) */
+.deTimer{position:sticky;top:0;z-index:20;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--card,#fff);border:2px solid var(--brand,#0b9a8f);border-radius:12px;padding:8px 12px;margin:0 0 10px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.deTimer span{font-weight:700}
+.deTimer b{font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--brand,#0b9a8f)}
+.deTimer small{flex-basis:100%;color:var(--mute,#5a6b80);font-size:.78rem}
+.deTimer.low{border-color:#c0261c}.deTimer.low b{color:#c0261c;animation:tmBlink 1s steps(2,start) infinite}
+.deTimer.end{background:#fde4e1;border-color:#c0261c}.deTimer.end b{animation:none}
+@keyframes tmBlink{50%{opacity:.45}}
+
+/* Partage d'un sujet */
+.deShare{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+.deShare .btn{flex:1 1 auto;margin:0}

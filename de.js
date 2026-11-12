@@ -3451,8 +3451,28 @@ function schools(){
       h+='</details>'});
     h+='</details>'});
   main.innerHTML=h;scrollTo(0,0)}
+/* Minuteur : 2 minutes par question (durée totale = nombre de questions du sujet × 2 min) */
+const PER_Q=120;let tEnd=0,tTot=0,tInt=null,locked=false,tUsed=0;
+const fmtT=s=>{s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(r).padStart(2,'0')};
+function tStop(){if(tInt){clearInterval(tInt);tInt=null}}
+function tStart(){tStop();locked=false;tUsed=0;tTot=cur.qs.length*PER_Q;tEnd=Date.now()+tTot*1000;tInt=setInterval(tick,500)}
+function tFinish(){tUsed=Math.min(tTot,Math.round((Date.now()-(tEnd-tTot*1000))/1000));tStop()}
+function tick(){const e=document.getElementById('deTimer');if(!e||done||!cur){tStop();return}
+  const left=Math.ceil((tEnd-Date.now())/1000);
+  e.querySelector('b').textContent=fmtT(left);e.classList.toggle('low',left<=Math.max(60,tTot*0.1));
+  if(left<=0){tStop();tUsed=tTot;locked=true;main.querySelectorAll('input').forEach(i=>i.disabled=true);e.classList.add('end');e.querySelector('span').textContent='⏱ Temps écoulé';
+    requireCorrection(()=>{done=true;quiz();scrollTo(0,0)})}}
+/* Partage : lien direct vers un sujet (#de=identifiant) à envoyer à ses amis */
+const sid=x=>{let h=5381;const t=x.t;for(let i=0;i<t.length;i++)h=((h*33)^t.charCodeAt(i))>>>0;return h.toString(36)};
+const shareUrl=()=>location.href.split('#')[0]+'#de='+sid(cur);
+const shareMsg=()=>'Traitons ensemble ce sujet D.E : '+cur.t+' ('+cur.qs.length+' questions, '+fmtT(cur.qs.length*PER_Q)+') 👉 '+shareUrl();
+function copyLink(btn){const u=shareUrl(),ok=()=>{if(btn){const o=btn.textContent;btn.textContent='✔ Lien copié';setTimeout(()=>btn.textContent=o,2000)}};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(u).then(ok,()=>{prompt('Copiez ce lien :',u)});else{try{prompt('Copiez ce lien :',u)}catch(e){}}}
+function shareWa(){window.open('https://wa.me/?text='+encodeURIComponent(shareMsg()),'_blank','noopener')}
 function quiz(){
   let h=`<div class="deTop"><button class="btn alt" data-a="subjects">← Sujets</button><span class="deMu">${CATS[ci].n}</span></div><h2>${cur.t}</h2>`;
+  h+=`<div class="deShare"><button class="btn alt" data-a="wa">💬 Envoyer ce sujet à mes amis</button> <button class="btn alt" data-a="copy">🔗 Copier le lien</button></div>`;
+  if(!done)h=`<div class="deTimer" id="deTimer"><span>⏱ Temps restant</span><b>${fmtT(Math.ceil((tEnd-Date.now())/1000))}</b><small>2 min par question · ${cur.qs.length} questions = ${fmtT(tTot)}</small></div>`+h;
   if(!done)h+='<p class="deMu">QCD : +1 bonne réponse, −1 fausse, 0 sans réponse. QCM : +1 si toutes les bonnes réponses (et seulement elles) sont cochées.</p>';
   let pts=0;
   cur.qs.forEach((q,i)=>{
@@ -3469,22 +3489,25 @@ function quiz(){
     if(done)h+=pend?'<div class="fix"><b>Correction en cours de rédaction.</b> Cette question n\'a pas encore de correction ; elle n\'est pas comptée dans la note.</div>':`<div class="fix"><b>${!u.length?'Sans réponse (0).':p>0?'✔ Correct (+1).':'✘ Incorrect ('+(q.t==='QCD'?'−1':'0')+').'}</b> ${q.e}</div>`;
     h+='</div>'});
   if(done){const n=cur.qs.filter(q=>q.a.length).length||1,s20=Math.max(0,pts)/n*20;
-    h=`<div class="deCard deScore"><div class="deMu">Votre score</div><div class="deBig">${pts} / ${n}</div><div>soit ${s20.toFixed(1)} / 20 — ${s20>=14?'Très bien 🎉':s20>=10?'Passable, continuez 💪':'À retravailler, relisez les corrections 📚'}</div>${cur.qs.length>n?'<div class="deMu">'+(cur.qs.length-n)+' question(s) sans correction non comptées.</div>':''}<button class="btn" data-a="again">Recommencer</button> <button class="btn alt" data-a="subjects">Autres sujets</button></div>`+h;
+    h=`<div class="deCard deScore"><div class="deMu">Votre score</div><div class="deBig">${pts} / ${n}</div><div>soit ${s20.toFixed(1)} / 20 — ${s20>=14?'Très bien 🎉':s20>=10?'Passable, continuez 💪':'À retravailler, relisez les corrections 📚'}</div><div class="deMu">⏱ Temps utilisé : ${fmtT(tUsed)} sur ${fmtT(tTot)}${tUsed>=tTot?' (temps écoulé)':''}</div>${cur.qs.length>n?'<div class="deMu">'+(cur.qs.length-n)+' question(s) sans correction non comptées.</div>':''}<button class="btn" data-a="again">Recommencer</button> <button class="btn alt" data-a="subjects">Autres sujets</button></div>`+h;
   }else h+='<div class="bar"><button class="btn" data-a="valid">Valider et voir la correction</button></div>';
   main.innerHTML=h}
 main.addEventListener('click',e=>{
   const b=e.target.closest('button[data-a]');if(!b)return;const a=b.dataset.a;
-  if(a==='schools'||a==='subjects')schools();
-  else if(a==='start'){ci=+b.dataset.c;cur=CATS[ci].s[+b.dataset.j];ans={};done=false;quiz();scrollTo(0,0)}
-  else if(a==='again'){ans={};done=false;quiz();scrollTo(0,0)}
-  else if(a==='valid'){requireCorrection(()=>{done=true;quiz();scrollTo(0,0)})}});
+  if(a==='wa')shareWa();
+  else if(a==='copy')copyLink(b);
+  else if(a==='schools'||a==='subjects'){tStop();schools()}
+  else if(a==='start'){ci=+b.dataset.c;cur=CATS[ci].s[+b.dataset.j];ans={};done=false;tStart();quiz();scrollTo(0,0)}
+  else if(a==='again'){ans={};done=false;tStart();quiz();scrollTo(0,0)}
+  else if(a==='valid'){requireCorrection(()=>{tFinish();done=true;quiz();scrollTo(0,0)})}});
 main.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.k)openS[d.dataset.k]=d.open},true);
 main.addEventListener('change',e=>{
-  const t=e.target;if(!t.dataset||t.dataset.i===undefined||t.dataset.k===undefined||done)return;
+  const t=e.target;if(!t.dataset||t.dataset.i===undefined||t.dataset.k===undefined||done||locked)return;
   const i=+t.dataset.i,k=+t.dataset.k;let a=ans[i]||[];
   if(t.dataset.m==='1')a=t.checked?[...a,k]:a.filter(x=>x!==k);else a=[k];
   ans[i]=a});
-document.getElementById('deBack').onclick=()=>{el.hidden=true;document.getElementById('home').hidden=false;scrollTo(0,0)};
-return{pool(){const out=[];CATS.forEach(c=>c.s.forEach(x=>{if(/cas|suite|étude/i.test(x.t+' '+x.d))return;let cas=false;x.qs.forEach(q=>{if(q.c)cas=true;if(cas||!q.t.startsWith('QCM')||!q.a.length||q.o.length<2)return;out.push({q:q.q,o:q.o,a:q.a,e:q.e,src:x.t})})}));return out},open(){document.getElementById('home').hidden=true;el.hidden=false;schools()},_t:{CATS,schools,quiz,state:()=>({sch,ci,cur,ans,done}),set:(s,c)=>{sch=s;ci=c}}};
+document.getElementById('deBack').onclick=()=>{tStop();el.hidden=true;document.getElementById('home').hidden=false;scrollTo(0,0)};
+return{pool(){const out=[];CATS.forEach(c=>c.s.forEach(x=>{if(/cas|suite|étude/i.test(x.t+' '+x.d))return;let cas=false;x.qs.forEach(q=>{if(q.c)cas=true;if(cas||!q.t.startsWith('QCM')||!q.a.length||q.o.length<2)return;out.push({q:q.q,o:q.o,a:q.a,e:q.e,src:x.t})})}));return out},open(){document.getElementById('home').hidden=true;el.hidden=false;schools()},openSubject(id){let f=null;CATS.forEach((c,i)=>c.s.forEach((x,j)=>{if(!f&&sid(x)===id)f=[i,j]}));if(!f)return false;
+  document.getElementById('home').hidden=true;el.hidden=false;ci=f[0];cur=CATS[ci].s[f[1]];ans={};done=false;tStart();quiz();scrollTo(0,0);return true},_t:{CATS,schools,quiz,state:()=>({sch,ci,cur,ans,done}),set:(s,c)=>{sch=s;ci=c}}};
 
 })();
