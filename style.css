@@ -251,3 +251,6 @@ table.t th{background:var(--card);color:var(--acc)}
 /* Partage d'un sujet */
 .deShare{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
 .deShare .btn{flex:1 1 auto;margin:0}
+
+.hbtn.sj{background:#c0392b;font-size:1.25rem;letter-spacing:.06em}
+.sjBody{padding:16px}.sjEmpty{text-align:center;opacity:.75;margin-top:40px}
