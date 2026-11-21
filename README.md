@@ -75,3 +75,8 @@ Le site peut s'installer comme une application sur téléphone : icône sur l'é
 - Android (Chrome) : bouton « Installer l'application » sur l'accueil, ou menu ⋮ → Installer l'application.
 - iPhone (Safari) : Partager → Sur l'écran d'accueil.
 - Après une mise à jour du site, changer `V` dans `sw.js` (ex. `mon-de-infas-v2`) pour que les téléphones récupèrent la nouvelle version.
+
+
+## Sujets J (mise à jour)
+- Boutons J1 à J5 actifs. J1 : Chirurgie, Pédiatrie · J2 : Santé publique, Chirurgie · J5 : Chirurgie, Médecine, Pédiatrie, Santé publique, Gynécologie, SR-PF (fichiers de-j5-*.js, de-j2-chir.js).
+- Médecine, Pédiatrie et Gynécologie J5 : le PDF reçu ne montrait aucune réponse (réponses reprises du site ou proposées). Questions marquées « ⚠ » : le cours du site prime sur le corrigé reçu.
