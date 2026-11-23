@@ -3452,13 +3452,14 @@ function schools(){
     h+='</details>'});
   main.innerHTML=h;scrollTo(0,0)}
 /* SUJET J1 à Jx : sujets marqués j:n (corrigés par jour), même moteur que les sujets D.E L3 */
+const jT=n=>n==='cb'?'COMPO ABOISSO DU 22 - 23 NOV':'SUJET J'+n;
 function jHome(n){
-  cur=null;sch=null;sub.textContent='Sujet J'+n+' · Entraînement et correction';
-  const t=document.querySelector('#de header h1');if(t)t.textContent='SUJET J'+n;
-  let h='<p class="deMu">Sujet J'+n+' : choisissez une matière, traitez le sujet (minuteur, note sur 20) puis lisez la correction détaillée.</p>',tot=0;
+  cur=null;sch=null;sub.textContent=n==='cb'?'Compo d\'Aboisso · Entraînement et correction':'Sujet J'+n+' · Entraînement et correction';
+  const t=document.querySelector('#de header h1');if(t)t.textContent=jT(n);
+  let h='<p class="deMu">'+(n==='cb'?'Compo d\'Aboisso':'Sujet J'+n)+' : choisissez une matière, traitez le sujet (minuteur, note sur 20) puis lisez la correction détaillée.</p>',tot=0;
   CATS.forEach((c,ci)=>{const its=c.s.map((x,j)=>[j,x]).filter(a=>a[1].j===n);if(!its.length)return;
     h+=`<h4 class="deCat">${c.i} ${c.n}</h4>`;its.forEach(([j,x])=>{tot++;h+=card(ci,j,x)})});
-  if(!tot)h+='<p class="deMu">Aucun sujet pour J'+n+' pour le moment.</p>';
+  if(!tot)h+='<p class="deMu">Aucun sujet pour '+(n==='cb'?'cette compo':'J'+n)+' pour le moment.</p>';
   main.innerHTML=h;scrollTo(0,0)}
 const home0=()=>{const t=document.querySelector('#de header h1');if(t)t.textContent='SUJET D.E L3'};
 /* Minuteur : 2 minutes par question (durée totale = nombre de questions du sujet × 2 min) */
@@ -3516,8 +3517,8 @@ main.addEventListener('change',e=>{
   const i=+t.dataset.i,k=+t.dataset.k;let a=ans[i]||[];
   if(t.dataset.m==='1')a=t.checked?[...a,k]:a.filter(x=>x!==k);else a=[k];
   ans[i]=a});
-document.getElementById('deBack').onclick=()=>{tStop();el.hidden=true;if(jMode){jMode=null;home0();document.getElementById('sj').hidden=false}else document.getElementById('home').hidden=false;scrollTo(0,0)};
+document.getElementById('deBack').onclick=()=>{tStop();el.hidden=true;if(jMode){const cb=jMode==='cb';jMode=null;home0();document.getElementById(cb?'home':'sj').hidden=false}else document.getElementById('home').hidden=false;scrollTo(0,0)};
 return{pool(){const out=[];CATS.forEach(c=>c.s.forEach(x=>{if(/cas|suite|étude/i.test(x.t+' '+x.d))return;let cas=false;x.qs.forEach(q=>{if(q.c)cas=true;if(cas||!q.t.startsWith('QCM')||!q.a.length||q.o.length<2)return;out.push({q:q.q,o:q.o,a:q.a,e:q.e,src:x.t})})}));return out},open(){jMode=null;home0();document.getElementById('home').hidden=true;el.hidden=false;schools()},openJ(n){jMode=n;document.getElementById('sj').hidden=true;document.getElementById('home').hidden=true;el.hidden=false;jHome(n)},openSubject(id){let f=null;CATS.forEach((c,i)=>c.s.forEach((x,j)=>{if(!f&&sid(x)===id)f=[i,j]}));if(!f)return false;
-  document.getElementById('home').hidden=true;document.getElementById('sj').hidden=true;el.hidden=false;ci=f[0];cur=CATS[ci].s[f[1]];jMode=cur.j||null;if(jMode){const t=document.querySelector('#de header h1');if(t)t.textContent='SUJET J'+jMode}else home0();ans={};done=false;tStart();quiz();scrollTo(0,0);return true},_t:{CATS,schools,quiz,state:()=>({sch,ci,cur,ans,done}),set:(s,c)=>{sch=s;ci=c}}};
+  document.getElementById('home').hidden=true;document.getElementById('sj').hidden=true;el.hidden=false;ci=f[0];cur=CATS[ci].s[f[1]];jMode=cur.j||null;if(jMode){const t=document.querySelector('#de header h1');if(t)t.textContent=jT(jMode)}else home0();ans={};done=false;tStart();quiz();scrollTo(0,0);return true},_t:{CATS,schools,quiz,state:()=>({sch,ci,cur,ans,done}),set:(s,c)=>{sch=s;ci=c}}};
 
 })();

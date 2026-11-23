@@ -78,5 +78,6 @@ Le site peut s'installer comme une application sur téléphone : icône sur l'é
 
 
 ## Sujets J (mise à jour)
-- Boutons J1 à J5 actifs. J1 : Chirurgie, Pédiatrie · J2 : Santé publique, Chirurgie · J5 : Chirurgie, Médecine, Pédiatrie, Santé publique, Gynécologie, SR-PF (fichiers de-j5-*.js, de-j2-chir.js).
+- Boutons J1 à J7 actifs (J7 : Chirurgie IDE3, Pédiatrie SF3, Santé publique IDE3/SF3, Gynécologie SF3, Médecine IDE3 et SSR/PF SF3, fichiers de-j7-*.js ; Santé publique, Gynéco, Médecine et SSR/PF J7 ajoutées sans correction ; mêmes questions que J1, réponses reprises de J1, le PDF reçu ne montrait aucune réponse).
+- Boutons J1 à J5 (détail). J1 : Chirurgie, Pédiatrie · J2 : Santé publique, Chirurgie · J5 : Chirurgie, Médecine, Pédiatrie, Santé publique, Gynécologie, SR-PF (fichiers de-j5-*.js, de-j2-chir.js).
 - Médecine, Pédiatrie et Gynécologie J5 : le PDF reçu ne montrait aucune réponse (réponses reprises du site ou proposées). Questions marquées « ⚠ » : le cours du site prime sur le corrigé reçu.

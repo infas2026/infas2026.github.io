@@ -221,6 +221,7 @@ table.t th{background:var(--card);color:var(--acc)}
 @keyframes bannerMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.banner{white-space:normal;text-align:center;padding:5px 10px}.banner .bTrack{animation:none;display:block}.banner .bTrack span+span{display:none}.banner .bTrack span{padding-right:0}}
 
+.hbtn.cb{background:#1f7a8c;font-size:1.1rem;letter-spacing:.04em}
 .hbtn.sf{background:#8a3fa0;font-size:1.25rem;letter-spacing:.06em}
 
 .hbtn.ec{background:#7b3fa0;font-size:1.25rem;letter-spacing:.06em}
