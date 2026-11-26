@@ -79,6 +79,10 @@ Le site peut s'installer comme une application sur téléphone : icône sur l'é
 
 
 ## Sujets J (mise à jour)
-- Boutons J1 à J7 actifs (J7 : Chirurgie IDE3, Pédiatrie SF3, Santé publique IDE3/SF3, Gynécologie SF3, Médecine IDE3 et SSR/PF SF3, fichiers de-j7-*.js ; Santé publique, Gynéco, Médecine et SSR/PF J7 ajoutées sans correction ; mêmes questions que J1, réponses reprises de J1, le PDF reçu ne montrait aucune réponse).
+- Boutons J1 à J7 actifs (J7 Gynéco, Pédiatrie et Chirurgie : corrigé de J1 appliqué car mêmes questions ; J7 Médecine, Santé publique et SR-PF ont des questions différentes de J1, toujours sans correction ; J7 : Chirurgie IDE3, Pédiatrie SF3, Santé publique IDE3/SF3, Gynécologie SF3, Médecine IDE3 et SSR/PF SF3, fichiers de-j7-*.js ; Santé publique, Gynéco, Médecine et SSR/PF J7 ajoutées sans correction ; mêmes questions que J1, réponses reprises de J1, le PDF reçu ne montrait aucune réponse).
 - Boutons J1 à J5 (détail). J1 : Chirurgie, Pédiatrie · J2 : Santé publique, Chirurgie · J5 : Chirurgie, Médecine, Pédiatrie, Santé publique, Gynécologie, SR-PF (fichiers de-j5-*.js, de-j2-chir.js).
 - Médecine, Pédiatrie et Gynécologie J5 : le PDF reçu ne montrait aucune réponse (réponses reprises du site ou proposées). Questions marquées « ⚠ » : le cours du site prime sur le corrigé reçu.
+- J1 Médecine IDE (de-j1-med.js) : 55 questions avec le corrigé officiel (réponses + explications) ; Q47 (HTA/AVC ischémique : Faux) et Q49 conservées telles que dans le corrigé, avec une note ⚠ pour Q47.
+- J1 : corrigé officiel intégré pour Médecine, Gynéco SFM, Pédiatrie (10 réponses corrigées), SR-PF, Chirurgie (9 réponses corrigées) et Santé publique (Q1 non notée) ; SR-PF Q36 et Q37 : réponses logiques (A, B) car le corrigé reçu était incohérent.
+- J2 Gynéco SF3, Médecine IDE3 et Pédiatrie IDE-SFM : corrigé officiel appliqué (11, 10 et 19 réponses mises à jour) ; les réponses douteuses du corrigé sont gardées avec une note ⚠.
+- J2 Chirurgie : corrigé officiel appliqué (7 réponses mises à jour, notes ⚠ sur Q8 et Q35 dont la 3e réponse manque dans le corrigé) ; J2 SR-PF et Santé publique : réponses déjà conformes au corrigé, aucun changement.
